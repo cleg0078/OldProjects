@@ -1,0 +1,18 @@
+{--------------------------------}
+{ Programme d'essai de fonctions }
+{       intergrees a FPC         }  
+{--------------------------------}
+
+program mathtest;
+var
+real res;
+begin
+
+res:=-7.0;
+while res<7
+     begin
+       write(res,cos(res),sin(res),exp(res),sqrt(abs(res))); 
+       writeln;
+       res:=res+1;
+     end
+end.

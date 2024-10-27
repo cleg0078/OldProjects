@@ -1,0 +1,12 @@
+program fct;
+var
+real i,j;
+bool k;
+
+begin
+i:=0.0;
+while(i<200000.0)
+     begin
+       write(sin(i)); i:=i+1.0;
+     end
+end.

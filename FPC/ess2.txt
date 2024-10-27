@@ -1,0 +1,1530 @@
+program popol;
+var
+int i,j,k;
+begin
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then 
+ begin 
+      if k=1 then  
+       while i<1000
+         begin 
+          write(i);
+          i:=i+2; 
+         end
+  writeln;
+  writeln;
+ end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+ end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+ end
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+ end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+ end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+ end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+ end
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+ end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+ end
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+ end
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+
+i:=-1;
+k:=1;
+writeln;
+if i=-1 then
+ begin
+      if k=1 then
+       while i<1000
+         begin
+          write(i);
+          i:=i+2;
+         end
+  writeln;
+  writeln;
+end
+   
+end.

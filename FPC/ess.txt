@@ -1,0 +1,17 @@
+program fct;
+var
+int i,j;
+bool k;
+
+function ess(int a);
+var
+begin 
+write(a); writeln;
+return(a-6);
+end;
+
+begin
+k:=3.14159 >4;
+j:=ess(5);
+write(k,j);
+end.

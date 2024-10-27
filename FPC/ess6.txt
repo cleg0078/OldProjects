@@ -1,0 +1,21 @@
+var
+int p;
+
+procedure ecrire(int k);
+var
+begin
+ if k<1 then 
+   begin
+    write(1); 
+    return;
+   end
+ else
+   begin
+    write(k);
+    ecrire(k-1);
+   end
+end;
+
+begin 
+ecrire(20);
+end.

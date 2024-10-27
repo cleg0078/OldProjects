@@ -1,0 +1,22 @@
+var
+
+function fact(int p);
+var
+int t;
+
+begin
+ if p<=1 then 
+   begin
+    return(1); 
+   end
+ else
+   begin
+    write(p);
+    t := fact(p-1);  
+    return(p*t);
+   end
+end;
+
+begin 
+write(fact(5));
+end.

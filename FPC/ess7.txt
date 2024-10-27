@@ -1,0 +1,32 @@
+var
+
+function bidon(int a,int b);
+var
+int r;
+begin
+r:=a*b;
+write(a,b); writeln;
+return(r);
+end;
+
+procedure bidon2(int a);
+var int j,k;
+begin
+
+write(a);
+writeln; writeln;
+
+j:=a;
+k:=3;
+while (j<10) 
+    begin
+     write(bidon(j,j*3));
+     write(j,k); writeln;
+     j:=j+1;
+    end
+
+end;
+
+begin
+bidon2(4);
+end.

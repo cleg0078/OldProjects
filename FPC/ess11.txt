@@ -1,0 +1,14 @@
+program popol;
+var
+int i;
+real f;
+begin
+writeln;
+ while i<200000
+      begin
+         f:=i; 
+         write(cos(f));
+         i:=i+1; 
+      end
+  writeln;
+end.

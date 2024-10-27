@@ -1,0 +1,27 @@
+{--------------------------------}
+{   Programme d'essai de boucle  }
+{             WHILE              }
+{--------------------------------}
+{      Affiche les  tables       }
+{       de multiplication        }
+{--------------------------------}
+
+program table;
+var
+real k;
+int i,j;
+begin
+i:=1;
+while i<=10
+    begin
+      j:=0;
+      while (j<=10) 
+        begin
+         write(i*j); 
+         j:=j+1;
+        end
+      writeln;
+      i:=i+1;
+    end
+writeln;
+end.

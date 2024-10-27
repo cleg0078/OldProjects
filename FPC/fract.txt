@@ -1,0 +1,43 @@
+var
+int x,y,col,res;
+real bx,by,px,py,old,module,sx,sy;
+
+begin
+sx:= 4/35;
+sy:= 4/20;
+py:= -2-sy;
+y:=0;
+
+while y<20
+     begin
+      px:=-2-sx;
+      py:=py+sy;
+      x:=0;
+      while x<35
+           begin
+            x:=x+1;
+            px:=px+sx;
+            module:=0;
+            bx:=px; by:=py;
+            col:=0;      
+            while module<4 and col<45
+                 begin
+                  old:=bx;
+                  bx:=bx*bx-by*by+0.32;
+                  by:=2*old*by;
+                  module:=bx*bx+by*by;
+                  col:=col+1;
+                 end
+
+            if col<32
+               then begin res:=col%2; write(res); end
+               else write(0);
+           end
+       writeln;
+       y:=y+1;
+      end
+
+ writeln;
+ writeln
+end.
+

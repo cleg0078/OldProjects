@@ -1,0 +1,21 @@
+var
+real k,l,m;
+int i;
+begin
+
+i:=0;
+k:=0.0;
+l:=0.0;
+
+while i<100000
+begin
+ k:=cos(k); 
+ l:=sin(l);
+ if k<0.5 then m:=k*l else K:=k+0.1;
+ if l>0.5 then l:=l-0.1 else l:=l+0.2;
+
+ m:=k*l;
+ i:=i+1;
+end
+
+end.       

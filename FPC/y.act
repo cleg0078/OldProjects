@@ -1,0 +1,373 @@
+
+case 3:
+#line 60 "fpc.y"
+{ actoper_type=TYPE_ENTIER; ;
+    break;}
+case 5:
+#line 61 "fpc.y"
+{ actoper_type=TYPE_REAL; ;
+    break;}
+case 7:
+#line 62 "fpc.y"
+{ actoper_type=TYPE_BOOL; ;
+    break;}
+case 9:
+#line 65 "fpc.y"
+{ if( InsertIdent(IdentHead,yylval.nom,IDENTIFICATEUR,actoper_type,NBFUNCTION) < 0 ) error(nbligne,"Duplicate Id ",yylval.nom); ;
+    break;}
+case 10:
+#line 67 "fpc.y"
+{ if( InsertIdent(IdentHead,yylval.nom,IDENTIFICATEUR,actoper_type,NBFUNCTION) < 0 )  error(nbligne,"Duplicate Id ",yylval.nom); ;
+    break;}
+case 14:
+#line 77 "fpc.y"
+{ actoper_type=TYPE_ENTIER; ;
+    break;}
+case 15:
+#line 77 "fpc.y"
+{
+                                                                      if( (tmp=InsertIdent(IdentHead,yylval.nom,IDENTIFICATEUR,actoper_type,NBFUNCTION)) < 0 ) 
+                                                                          error(nbligne,"Duplicate Id ",yylval.nom);  
+                                                                       FctHead[NBFUNCTION].arg[FctHead[NBFUNCTION].nbarg++]=tmp;
+             
+                                                                     ;
+    break;}
+case 16:
+#line 83 "fpc.y"
+{ actoper_type=TYPE_REAL; ;
+    break;}
+case 17:
+#line 83 "fpc.y"
+{ 
+                                                                   if( (tmp=InsertIdent(IdentHead,yylval.nom,IDENTIFICATEUR,actoper_type,NBFUNCTION)) < 0 ) 
+	                                                               error(nbligne,"Duplicate Id ",yylval.nom); 
+  	                                                            FctHead[NBFUNCTION].arg[FctHead[NBFUNCTION].nbarg++]=tmp;
+                                                                  ;
+    break;}
+case 18:
+#line 88 "fpc.y"
+{ actoper_type=TYPE_BOOL; ;
+    break;}
+case 19:
+#line 88 "fpc.y"
+{
+                                                                  if( (tmp=InsertIdent(IdentHead,yylval.nom,IDENTIFICATEUR,actoper_type,NBFUNCTION)) < 0 )
+                                                                     error(nbligne,"Duplicate Id ",yylval.nom);
+                                                                   FctHead[NBFUNCTION].arg[FctHead[NBFUNCTION].nbarg++]=tmp;
+                                                                  ;
+    break;}
+case 24:
+#line 102 "fpc.y"
+{ BuildPseudo(PUSHARG,-1,-1,yyvsp[0].place); ;
+    break;}
+case 25:
+#line 103 "fpc.y"
+{ BuildPseudo(PUSHARG,-1,-1,yyvsp[0].place); ;
+    break;}
+case 30:
+#line 112 "fpc.y"
+{ tmp2=0; ;
+    break;}
+case 31:
+#line 114 "fpc.y"
+{ tmp2=1; BuildPseudo(GOTO,-1,-1,-1); Push(NBSYMBOL);
+                    ;
+    break;}
+case 32:
+#line 116 "fpc.y"
+{ Push(NBSYMBOL); ;
+    break;}
+case 35:
+#line 122 "fpc.y"
+{ Push(NBSYMBOL); BuildPseudo(JUMP_EQ,yyvsp[0].place,-1,-1); ;
+    break;}
+case 36:
+#line 123 "fpc.y"
+{
+                          int res1,res2,res3;
+                          if( tmp2==1 ) /* ELSE */
+                            {
+                             res1=Pop(); res2=Pop(); res3=Pop();
+                             Symtab[res2-1].Res=res1;
+                             Symtab[res3].Res=res2;
+                            }
+                          else
+                            { 
+                             res1=Pop(); 
+                             Symtab[res1].Res = NBSYMBOL;
+                            }
+                         ;
+    break;}
+case 37:
+#line 137 "fpc.y"
+{ Push(NBSYMBOL); ;
+    break;}
+case 38:
+#line 137 "fpc.y"
+{ Push(NBSYMBOL); BuildPseudo(JUMP_EQ,yyvsp[-1].place,-1,-1); ;
+    break;}
+case 39:
+#line 138 "fpc.y"
+{ int res=Pop();  
+                              Symtab[res].Res=NBSYMBOL+1;
+                              Symtab[res].Oper1 = Symtab[res-1].Res;
+                              BuildPseudo(GOTO,-1,-1,Pop());
+                            ;
+    break;}
+case 43:
+#line 147 "fpc.y"
+{
+                tmp=FindFunction(FctHead,yyvsp[-3].nom);
+                if( tmp < 0 )
+                   error(nbligne,"Undeclared Function:",yyvsp[-3].nom);
+
+                BuildPseudo(PUSHADDR,-1,-1,NBSYMBOL+2);
+                BuildPseudo(GOTO,-1,-1,FctHead[tmp].addr);
+               ;
+    break;}
+case 44:
+#line 155 "fpc.y"
+{ if( FctHead[NBFUNCTION-1].ret != 0 )
+                           error(nbligne,"Missing Return Value",NULL);
+                        BuildPseudo(POPJUMP,-1,-1,-1); 
+                      ;
+    break;}
+case 45:
+#line 160 "fpc.y"
+{
+                        if( FctHead[NBFUNCTION-1].ret == 0 )
+                           error(nbligne,"Procedure Can't Use A Return Value",NULL);
+                        BuildPseudo(PUSHARG,-1,-1,yyvsp[-1].place);
+                       ;
+    break;}
+case 46:
+#line 167 "fpc.y"
+{ BuildPseudo(WRITELN,-1,-1,-1); ;
+    break;}
+case 48:
+#line 175 "fpc.y"
+{ 
+                                  if( yyvsp[0].type==PROCEDURE )
+			             error(nbligne,"Invalid Procedure Affectation",NULL);
+                                  BuildPseudo(WRITE,yyvsp[0].place,-1,-1); 
+                                ;
+    break;}
+case 49:
+#line 181 "fpc.y"
+{
+                                 if( yyvsp[0].type == PROCEDURE ) 
+                                    error(nbligne,"Invalide Procedure Affectation",NULL);
+                                 BuildPseudo(WRITE,yyvsp[0].place,-1,-1);
+                                ;
+    break;}
+case 50:
+#line 189 "fpc.y"
+{ if( yyvsp[-2].type != IDENTIFICATEUR )
+                                                       error(nbligne,"Invalid lvalue Assignment",NULL);
+                                                    else
+                                                      {/*             ORIGINAL CODE                     */
+                                                       /* BuildPseudo(AFFECTATION,$3.place,0,$1.place); */
+                                                       /*     But We've include a small Optimization    */
+                                                       if( yyvsp[0].type== PROCEDURE )
+                                                          error(nbligne,"Invalid Procedure Assignment\n",NULL);
+
+                                                       if( NBSYMBOL>1 && strncmp(IdentHead[yyvsp[0].place].nom,"#tmp",4) == 0 && opt)
+                                                          Symtab[NBSYMBOL-1].Res = yyvsp[-2].place;  
+                                                       else
+                                                          BuildPseudo(AFFECTATION,yyvsp[0].place,-1,yyvsp[-2].place);
+                                                      }
+                                                  ;
+    break;}
+case 51:
+#line 204 "fpc.y"
+{ yyval.type = yyvsp[0].type; yyval.place=yyvsp[0].place; ;
+    break;}
+case 52:
+#line 208 "fpc.y"
+{ yyval.place=yyvsp[-1].place; ;
+    break;}
+case 53:
+#line 209 "fpc.y"
+{ yyval.place=BuildOper(yyvsp[-1].type,yyvsp[-2].place,yyvsp[0].place); ;
+    break;}
+case 54:
+#line 210 "fpc.y"
+{ yyval.place=BuildOper(yyvsp[-1].type,yyvsp[-2].place,yyvsp[0].place); ;
+    break;}
+case 55:
+#line 211 "fpc.y"
+{ yyval.place=BuildOper(yyvsp[-1].type,yyvsp[-2].place,yyvsp[0].place); ;
+    break;}
+case 56:
+#line 212 "fpc.y"
+{ yyval.place=BuildOper(yyvsp[-1].type,yyvsp[-2].place,yyvsp[0].place); ;
+    break;}
+case 57:
+#line 213 "fpc.y"
+{ yyval.place=BuildOper(yyvsp[-1].type,yyvsp[-2].place,yyvsp[0].place); ;
+    break;}
+case 58:
+#line 214 "fpc.y"
+{ yyval.place=BuildOper(yyvsp[-1].type,yyvsp[-2].place,yyvsp[0].place); ;
+    break;}
+case 59:
+#line 215 "fpc.y"
+{ yyval.place=BuildOper(yyvsp[-1].type,yyvsp[-2].place,yyvsp[0].place); ;
+    break;}
+case 60:
+#line 216 "fpc.y"
+{ yyval.place=BuildOper(yyvsp[-1].type,yyvsp[-2].place,yyvsp[0].place); ;
+    break;}
+case 61:
+#line 217 "fpc.y"
+{ yyval.place=BuildOper(yyvsp[-1].type,yyvsp[-2].place,yyvsp[0].place); ;
+    break;}
+case 62:
+#line 218 "fpc.y"
+{ yyval.place=BuildOper(yyvsp[-1].type,yyvsp[-2].place,yyvsp[0].place); ;
+    break;}
+case 63:
+#line 219 "fpc.y"
+{ yyval.place=BuildOper(yyvsp[-1].type,yyvsp[-2].place,yyvsp[0].place); ;
+    break;}
+case 64:
+#line 220 "fpc.y"
+{ yyval.place=BuildOper(yyvsp[-1].type,yyvsp[-2].place,yyvsp[0].place); ;
+    break;}
+case 65:
+#line 221 "fpc.y"
+{ yyval.place=BuildOper(yyvsp[-1].type,yyvsp[-2].place,yyvsp[0].place); ;
+    break;}
+case 66:
+#line 222 "fpc.y"
+{ yyval.place=BuildUnaryOper(UNARY_MOINS,yyvsp[0].place); ;
+    break;}
+case 67:
+#line 223 "fpc.y"
+{ yyval.place=BuildUnaryOper(UNARY_PLUS,yyvsp[0].place); ;
+    break;}
+case 68:
+#line 224 "fpc.y"
+{ yyval.place=BuildUnaryOper(NOT,yyvsp[0].place); ;
+    break;}
+case 69:
+#line 225 "fpc.y"
+{ yyval.place=BuildOper(yyvsp[-3].type,yyvsp[-1].place,-1); ;
+    break;}
+case 70:
+#line 226 "fpc.y"
+{ yyval.place=BuildOper(yyvsp[-3].type,yyvsp[-1].place,-1); ;
+    break;}
+case 71:
+#line 227 "fpc.y"
+{ yyval.place=BuildOper(yyvsp[-3].type,yyvsp[-1].place,-1); ;
+    break;}
+case 72:
+#line 228 "fpc.y"
+{ yyval.place=BuildOper(yyvsp[-3].type,yyvsp[-1].place,-1); ;
+    break;}
+case 73:
+#line 229 "fpc.y"
+{ yyval.place=BuildOper(yyvsp[-3].type,yyvsp[-1].place,-1); ;
+    break;}
+case 74:
+#line 230 "fpc.y"
+{ yyval.place=BuildOper(yyvsp[-3].type,yyvsp[-1].place,-1); ;
+    break;}
+case 75:
+#line 231 "fpc.y"
+{ yyval.type = yyvsp[0].type; yyval.place=yyvsp[0].place;;
+    break;}
+case 76:
+#line 233 "fpc.y"
+{
+               tmp=FindFunction(FctHead,yyvsp[-3].nom);
+               if( tmp < 0 )
+                  error(nbligne,"Undeclared Function or Procedure",yyvsp[-3].nom);
+
+               BuildPseudo(PUSHADDR,-1,-1,NBSYMBOL+2);
+               BuildPseudo(GOTO,-1,-1,FctHead[tmp].addr);
+               if( FctHead[tmp].ret !=0 )
+                 { 
+                  int tmp2;
+                  tmp2=GenerateTMP(TYPE_REAL);
+                  BuildPseudo(POPARG,-1,-1,tmp2);
+                  if(tmp2<0 ) error(nbligne,"Can't Alloc TMP\n","");
+                  yyval.place=tmp2;
+                  yyval.type = FUNCTION; 
+                 }
+               else 
+                {
+                 yyval.type=PROCEDURE;     
+                 yyval.place = tmp;
+                }
+              ;
+    break;}
+case 77:
+#line 257 "fpc.y"
+{ yyval.type=IDENTIFICATEUR; if( (yyval.place=FindIdent(IdentHead,yylval.nom,NBFUNCTION)) < 0 ) error(nbligne,"Undeclared Id ",yylval.nom); ;
+    break;}
+case 78:
+#line 258 "fpc.y"
+{ yyval.type=yyvsp[0].type;  
+                    tmp=InsertIdent(IdentHead,yylval.nom,yyvsp[0].type,yyvsp[0].type==CONSTANTE_ENTIERE?TYPE_ENTIER:TYPE_REAL,NBFUNCTION); 
+                    if( tmp >-1 )                         
+                       if(yyvsp[0].type == CONSTANTE_ENTIERE )
+                          IdentHead[tmp].eval = yyvsp[0].eval;
+                       else
+                          IdentHead[tmp].fval = yyvsp[0].fval;
+                    yyval.place=tmp;
+                  ;
+    break;}
+case 79:
+#line 267 "fpc.y"
+{ yyval.type=yyvsp[-1].type; yyval.place=yyvsp[-1].place; ;
+    break;}
+case 80:
+#line 273 "fpc.y"
+{ 
+                         tmp=FindFunction(FctHead,yylval.nom);
+                         if( tmp>=0 ) error(nbligne,"Duplicate Procedure Name: ",yylval.nom);
+                         tmp=InsertFunction(FctHead,yylval.nom,NBSYMBOL);
+                         FctHead[NBFUNCTION].ret=0;
+                         NBFUNCTION++;
+                       ;
+    break;}
+case 81:
+#line 283 "fpc.y"
+{ /* Now Build The Argument Stack In INVERSE ORDER */
+             for(tmp=FctHead[NBFUNCTION].nbarg-1; tmp>=0 ; tmp-- )
+                 BuildPseudo(POPARG,-1,-1,FctHead[NBFUNCTION].arg[tmp]);
+           ;
+    break;}
+case 82:
+#line 290 "fpc.y"
+{ BuildPseudo(POPJUMP,-1,-1,-1); ;
+    break;}
+case 83:
+#line 295 "fpc.y"
+{
+                 tmp=FindFunction(FctHead,yylval.nom);
+                 if( tmp>=0 )
+                    error(nbligne,"Duplicate Procedure Name: ",yylval.nom);                         tmp=InsertFunction(FctHead,yylval.nom,NBSYMBOL);
+                 FctHead[NBFUNCTION].ret=1;
+                 NBFUNCTION++;
+                ;
+    break;}
+case 84:
+#line 305 "fpc.y"
+{ /* Now Build The Argument Stack In INVERSE ORDER */
+             for(tmp=FctHead[NBFUNCTION].nbarg-1; tmp>=0 ; tmp-- )
+                 BuildPseudo(POPARG,-1,-1,FctHead[NBFUNCTION].arg[tmp]);
+           ;
+    break;}
+case 85:
+#line 313 "fpc.y"
+{ /* Assuming No Fonction return: It's For Stack underflow */
+                               BuildPseudo(POPJUMP,-1,-1,-1);
+                             ;
+    break;}
+case 90:
+#line 326 "fpc.y"
+{ Symtab[0].Res=NBSYMBOL; ;
+    break;}

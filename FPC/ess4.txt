@@ -1,0 +1,12 @@
+var
+int a,b;
+begin
+a:=2;
+b:=3;
+
+if a>b then 
+  if b>5 then write(a) else write(b)
+else
+  write(a*b);
+end.
+

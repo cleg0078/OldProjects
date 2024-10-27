@@ -1,0 +1,46 @@
+DERNIERE MINUTE: UNE VERSION DOS!!!!!
+
+Bon il reste encore des petits pbs … r‚gler mais globalement:CA MARCHE!!!!
+L'interpreteur n'est pas au top mais bon!!!!!
+J'ai apport‚ les modifs et fait quelques tests sur seulement 20 MIN donc...
+
+Bref;
+
+LANCER make.bat  [ c'est du WATCOM!!! ATTENTION FLEX veut de l'ems !!
+                    AUCUNE OPTION D'optimisation n'est lanc‚e!!!! ]
+
+
+NOTES DIVERSES:
+--------------
+
+IL N'Y A PAS DE DISTINCTION MAJUSCULE-MINUSCULE [comme le "vrai" PASCAL ]
+
+
+LES ALLOCATIONS DES IDENTIFIEURS,FCTS SONT STATIQUES!!!! ON NE PEUT PAS
+DEPASSER LES 3500 POUR CHAQUE!!!
+
+
+Les d‚clarations se font A LA C: int a,b;
+TYPES ADMIS BOOL,REAL,INT;
+
+
+FONCTIONS INTEGREES: WRITE,WRITELN,COS,SIN,ABS,EXP,LN,SQRT.
+ex:
+WRITE(a,b,c,5.0,4);
+WRITE(COS(a),SIN(f));
+WRITELN;   { retour a la ligne }
+
+
+LA RECURSIVITE POSE ENCORE DES PBS!!!!
+
+
+L'OPTIMISEUR [SIMPLE] DU COMPILATEUR EST PAR DEFAUT ACTIVE [IL FAUT AJOUTER
+UN TRAITEMENT DE LA LIGNE DE COMMANDE SOUS DOS POUR CHANGER CELA]
+
+
+APPEL COMPILO: FPC nom_source
+APPEL INTERPRETEUR: FPCINTER fpc.obj [toujours!!!!]
+
+
+GENERATION DU PSEUDO CODE: VOIR pseudo.txt [ASSEMBLEUR PERSONNEL ]
+

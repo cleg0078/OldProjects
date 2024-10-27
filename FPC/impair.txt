@@ -1,0 +1,32 @@
+{--------------------------------}
+{   Programme d'essai de boucle  }
+{             WHILE              }
+{--------------------------------}
+{ Affiche les nombres impairs.   }
+{--------------------------------}
+
+program impair;
+var
+real k;
+int i;
+begin
+i:=1;
+while i<300
+    begin
+      write(i); 
+      i:=i+2;
+    end
+writeln;
+
+i:=1
+while
+    begin
+      write(i);
+      i:=i+2;
+    end
+writeln;
+
+
+ 
+
+end.

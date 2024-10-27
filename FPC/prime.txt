@@ -1,0 +1,24 @@
+program prime;
+var 
+real nombre,fac;
+
+begin
+nombre:=1107612;
+fac:=2;
+write(nombre); writeln;
+
+while fac< (sqrt(nombre)+1)
+     begin
+       if (nombre%fac) = 0 then
+         begin
+            write( fac );
+            nombre:=nombre/fac;
+         end
+       else 
+         fac:=fac+1;
+     end
+write(nombre);
+writeln; writeln;
+end.
+  
+        
