@@ -5,7 +5,4 @@ It's nice to see that almost a code 26 years old still compile and works without
 
 READY TO PLAY: 
 	- FPC: First compiler I wrote. I did a C compiler but I have to find the source code.
-
-WILL FOLLOW:
-	- My X-Windows window manager / GUI Builder ( pure XWindow functions - Full C )
-	- My 3D Editor ( Full C ) 
+    - table_football: soccer table management ( it was a test for a company )
