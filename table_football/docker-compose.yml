@@ -1,0 +1,32 @@
+version: '3'
+services:
+  web-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=
+      - DB_NAME=table_soccer
+
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 
+      POSTGRES_DB: table_soccer
+      POSTGRES_HOST_AUTH_METHOD: trust # Allow connections without password for dev
+    volumes:
+      - ./sql/create_db.sql:/docker-entrypoint-initdb.d/create_db.sql # Copy and execute SQL on startup
+    ports:
+      - "5432:5432"
+
+volumes:
+  db_data:

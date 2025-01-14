@@ -1,0 +1,29 @@
+.custom-card {
+  width: 100%!important;
+  margin: auto; /* Center the card horizontally */
+}
+
+.hero-section {
+  position: relative;
+  height: 40vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  overflow: hidden;
+}
+
+.hero-section::before {
+            background-image: url(/public/landing2.webp);
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+	    background-position: center, bottom left;
+	    background-size: cover;
+	    width:100%;
+	    height:100%;
+	    z-index: -2;
+            opacity: 0.3;
+}
