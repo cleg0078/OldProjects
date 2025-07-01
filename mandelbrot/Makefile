@@ -7,4 +7,5 @@ compile:
 	gcc -o mandelbrot mandelbrot.c -lpthread -lX11 -lm -O2
 	gcc -o julia julia.c -lpthread -lX11 -lm -O2
 
-
+clean:
+	@rm -f julia mandelbrot *.o
