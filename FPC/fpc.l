@@ -1,5 +1,7 @@
 %{
 #include<math.h>
+#include<ctype.h>
+
 #undef YY_INPUT
 #define YY_INPUT(buf,result,max_size) \
 	if ( (result = read( fileno(yyin), (char *) buf, max_size )) < 0 ) \

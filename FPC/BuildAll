@@ -1,4 +1,4 @@
 flex -I fpc.l
 bison -d fpc.y
-gcc -O2 -o fpc y.tab.c -ll -lm
+gcc -g -o fpc y.tab.c -ll -lm
 

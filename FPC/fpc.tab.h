@@ -1,58 +1,129 @@
-#ifndef YYSTYPE
-#define YYSTYPE int
-#endif
-#define	OR	258
-#define	AND	259
-#define	NOT	260
-#define	AFFECTATION	261
-#define	INFERIEUR	262
-#define	SUPERIEUR	263
-#define	INFERIEUR_EGAL	264
-#define	SUPERIEUR_EGAL	265
-#define	EGALITE	266
-#define	DIFFERENCE	267
-#define	PLUS	268
-#define	MOINS	269
-#define	UNARY_PLUS	270
-#define	UNARY_MOINS	271
-#define	MULTIPLIER	272
-#define	DIVISER	273
-#define	MODULO	274
-#define	TYPE_BOOL	275
-#define	TYPE_ENTIER	276
-#define	TYPE_REAL	277
-#define	PBEGIN	278
-#define	PEND	279
-#define	PARENTHESE_OUVERTE	280
-#define	PARENTHESE_FERMEE	281
-#define	FIN_INSTRUCTION	282
-#define	VIRGULE	283
-#define	DOUBLE_POINT	284
-#define	IF	285
-#define	THEN	286
-#define	ELSE	287
-#define	GOTO	288
-#define	WHILE	289
-#define	PROGRAM	290
-#define	FUNCTION	291
-#define	PROCEDURE	292
-#define	VAR	293
-#define	CONSTANTE	294
-#define	IDENTIFICATEUR	295
-#define	WRITE	296
-#define	WRITELN	297
-#define	JUMP_EQ	298
-#define	COS	299
-#define	SIN	300
-#define	LN	301
-#define	EXP	302
-#define	SQRT	303
-#define	ABS	304
-#define	POINT	305
-#define	PUSHADDR	306
-#define	POPJUMP	307
-#define	PUSHARG	308
-#define	POPARG	309
-#define	RETURN	310
-#define	UNARY	311
+/* A Bison parser, made by GNU Bison 3.8.2.  */
 
+/* Bison interface for Yacc-like parsers in C
+
+   Copyright (C) 1984, 1989-1990, 2000-2015, 2018-2021 Free Software Foundation,
+   Inc.
+
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
+
+/* As a special exception, you may create a larger work that contains
+   part or all of the Bison parser skeleton and distribute that work
+   under terms of your choice, so long as that work isn't itself a
+   parser generator using the skeleton or a modified version thereof
+   as a parser skeleton.  Alternatively, if you modify or redistribute
+   the parser skeleton itself, you may (at your option) remove this
+   special exception, which will cause the skeleton and the resulting
+   Bison output files to be licensed under the GNU General Public
+   License without this special exception.
+
+   This special exception was added by the Free Software Foundation in
+   version 2.2 of Bison.  */
+
+/* DO NOT RELY ON FEATURES THAT ARE NOT DOCUMENTED in the manual,
+   especially those whose name start with YY_ or yy_.  They are
+   private implementation details that can be changed or removed.  */
+
+#ifndef YY_YY_FPC_TAB_H_INCLUDED
+# define YY_YY_FPC_TAB_H_INCLUDED
+/* Debug traces.  */
+#ifndef YYDEBUG
+# define YYDEBUG 0
+#endif
+#if YYDEBUG
+extern int yydebug;
+#endif
+
+/* Token kinds.  */
+#ifndef YYTOKENTYPE
+# define YYTOKENTYPE
+  enum yytokentype
+  {
+    YYEMPTY = -2,
+    YYEOF = 0,                     /* "end of file"  */
+    YYerror = 256,                 /* error  */
+    YYUNDEF = 257,                 /* "invalid token"  */
+    OR = 258,                      /* OR  */
+    AND = 259,                     /* AND  */
+    NOT = 260,                     /* NOT  */
+    AFFECTATION = 261,             /* AFFECTATION  */
+    INFERIEUR = 262,               /* INFERIEUR  */
+    SUPERIEUR = 263,               /* SUPERIEUR  */
+    INFERIEUR_EGAL = 264,          /* INFERIEUR_EGAL  */
+    SUPERIEUR_EGAL = 265,          /* SUPERIEUR_EGAL  */
+    EGALITE = 266,                 /* EGALITE  */
+    DIFFERENCE = 267,              /* DIFFERENCE  */
+    PLUS = 268,                    /* PLUS  */
+    MOINS = 269,                   /* MOINS  */
+    UNARY_PLUS = 270,              /* UNARY_PLUS  */
+    UNARY_MOINS = 271,             /* UNARY_MOINS  */
+    MULTIPLIER = 272,              /* MULTIPLIER  */
+    DIVISER = 273,                 /* DIVISER  */
+    MODULO = 274,                  /* MODULO  */
+    TYPE_BOOL = 275,               /* TYPE_BOOL  */
+    TYPE_ENTIER = 276,             /* TYPE_ENTIER  */
+    TYPE_REAL = 277,               /* TYPE_REAL  */
+    PBEGIN = 278,                  /* PBEGIN  */
+    PEND = 279,                    /* PEND  */
+    PARENTHESE_OUVERTE = 280,      /* PARENTHESE_OUVERTE  */
+    PARENTHESE_FERMEE = 281,       /* PARENTHESE_FERMEE  */
+    FIN_INSTRUCTION = 282,         /* FIN_INSTRUCTION  */
+    VIRGULE = 283,                 /* VIRGULE  */
+    DOUBLE_POINT = 284,            /* DOUBLE_POINT  */
+    IF = 285,                      /* IF  */
+    THEN = 286,                    /* THEN  */
+    ELSE = 287,                    /* ELSE  */
+    GOTO = 288,                    /* GOTO  */
+    WHILE = 289,                   /* WHILE  */
+    PROGRAM = 290,                 /* PROGRAM  */
+    FUNCTION = 291,                /* FUNCTION  */
+    PROCEDURE = 292,               /* PROCEDURE  */
+    VAR = 293,                     /* VAR  */
+    CONSTANTE = 294,               /* CONSTANTE  */
+    IDENTIFICATEUR = 295,          /* IDENTIFICATEUR  */
+    WRITE = 296,                   /* WRITE  */
+    WRITELN = 297,                 /* WRITELN  */
+    JUMP_EQ = 298,                 /* JUMP_EQ  */
+    COS = 299,                     /* COS  */
+    SIN = 300,                     /* SIN  */
+    LN = 301,                      /* LN  */
+    EXP = 302,                     /* EXP  */
+    SQRT = 303,                    /* SQRT  */
+    ABS = 304,                     /* ABS  */
+    POINT = 305,                   /* POINT  */
+    PUSHADDR = 306,                /* PUSHADDR  */
+    POPJUMP = 307,                 /* POPJUMP  */
+    PUSHARG = 308,                 /* PUSHARG  */
+    POPARG = 309,                  /* POPARG  */
+    RETURN = 310,                  /* RETURN  */
+    UNARY = 311                    /* UNARY  */
+  };
+  typedef enum yytokentype yytoken_kind_t;
+#endif
+
+/* Value type.  */
+#if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
+typedef int YYSTYPE;
+# define YYSTYPE_IS_TRIVIAL 1
+# define YYSTYPE_IS_DECLARED 1
+#endif
+
+
+extern YYSTYPE yylval;
+
+
+int yyparse (void);
+
+
+#endif /* !YY_YY_FPC_TAB_H_INCLUDED  */

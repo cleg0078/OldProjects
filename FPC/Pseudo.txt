@@ -7,46 +7,50 @@
 
 Symbol Table:
 
-      5 --->            5 [INTEGER]
-      J --->            0 [INTEGER]
-      K --->            0 [BOOLEAN]
-      A --->            0 [INTEGER]
-      6 --->            6 [INTEGER]
-  #tmp0 --->            0 [INTEGER]
-3.14159 ---> 3.141590 [REAL]
-      4 --->            4 [INTEGER]
+    I --->            0 [INTEGER]
+    J --->            0 [INTEGER]
+    R ---> 0.000000 [REAL]
+  0.5 ---> 0.500000 [REAL]
+    1 --->            1 [INTEGER]
+    2 --->            2 [INTEGER]
+    3 --->            3 [INTEGER]
+#tmp0 --->            0 [INTEGER]
+#tmp2 ---> 0.000000 [REAL]
+  3.5 ---> 3.500000 [REAL]
+    5 --->            5 [INTEGER]
 
 
 
-  0: GOTO 7
-  1: POPARG A
-  2: WRITE A
-  3: WRITELN
-  4: #tmp0 := A - 6
-  5: PUSHARG #tmp0
-  6: POPJUMP
-  7: K := 3.14159 > 4
-  8: PUSHARG 5
-  9: PUSHADDR 11
- 10: GOTO 1
- 11: POPARG J
- 12: WRITE K
- 13: WRITE J
- 14: END OF PROGRAM
+  0: GOTO 1
+  1: I := 1
+  2: J := 2
+  3: #tmp0 := I < 3
+  4: JUMP_EQ #tmp0,7
+  5: I := I + J
+  6: GOTO 12
+  7: R := 3.5
+  8: #tmp2 := R <= 5
+  9: JUMP_EQ #tmp2,11
+ 10: GOTO 8
+ 11: R := R + 0.5
+ 12: END OF PROGRAM
 
 
 Now Executing Code....
 
 Symbol Table:
 
-      5 --->            5 [INTEGER]
-      J --->           -1 [INTEGER]
-      K --->            0 [BOOLEAN]
-      A --->            5 [INTEGER]
-      6 --->            6 [INTEGER]
-  #tmp0 --->           -1 [INTEGER]
-3.14159 ---> 3.141590 [REAL]
-      4 --->            4 [INTEGER]
+    I --->            3 [INTEGER]
+    J --->            2 [INTEGER]
+    R ---> 0.000000 [REAL]
+  0.5 ---> 0.500000 [REAL]
+    1 --->            1 [INTEGER]
+    2 --->            2 [INTEGER]
+    3 --->            3 [INTEGER]
+#tmp0 --->            1 [INTEGER]
+#tmp2 ---> 0.000000 [REAL]
+  3.5 ---> 3.500000 [REAL]
+    5 --->            5 [INTEGER]
 
 
 
