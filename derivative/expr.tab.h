@@ -49,11 +49,11 @@ extern int yydebug;
 
 #ifndef NODE_DEFINED
 #define NODE_DEFINED
-typedef struct Node {
-    enum { NUM, VAR, ADD, SUB, MUL, DIV, NODE_SIN, NODE_COS, NODE_TAN, NODE_EXP, NODE_LN } type;
-    struct Node *left, *right;
-    int value;
-} Node;
+	typedef struct Node {
+		enum { NUM, VAR, ADD, SUB, MUL, DIV, NODE_SIN, NODE_COS, NODE_TAN, NODE_EXP, NODE_LN, NODE_LOG, NODE_POW } type;
+		struct Node *left, *right;
+		int value;
+	} Node;
 #endif
 
 #line 60 "expr.tab.h"
@@ -74,7 +74,9 @@ typedef struct Node {
     TAN = 262,                     /* TAN  */
     EXP = 263,                     /* EXP  */
     LN = 264,                      /* LN  */
-    UMINUS = 265                   /* UMINUS  */
+    LOG = 265,                     /* LOG  */
+    POW = 266,                     /* POW  */
+    UMINUS = 267                   /* UMINUS  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -83,12 +85,13 @@ typedef struct Node {
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 38 "expr.y"
+#line 42 "expr.y"
 
-    int num;
-    Node* node;
+		int num;
+		Node* node;
+	
 
-#line 92 "expr.tab.h"
+#line 95 "expr.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

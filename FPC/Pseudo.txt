@@ -7,50 +7,47 @@
 
 Symbol Table:
 
+#tmp2 --->            0 [INTEGER]
     I --->            0 [INTEGER]
     J --->            0 [INTEGER]
-    R ---> 0.000000 [REAL]
-  0.5 ---> 0.500000 [REAL]
     1 --->            1 [INTEGER]
-    2 --->            2 [INTEGER]
-    3 --->            3 [INTEGER]
+   10 --->           10 [INTEGER]
 #tmp0 --->            0 [INTEGER]
-#tmp2 ---> 0.000000 [REAL]
-  3.5 ---> 3.500000 [REAL]
-    5 --->            5 [INTEGER]
+    0 --->            0 [INTEGER]
+#tmp1 --->            0 [INTEGER]
 
 
 
   0: GOTO 1
   1: I := 1
-  2: J := 2
-  3: #tmp0 := I < 3
-  4: JUMP_EQ #tmp0,7
-  5: I := I + J
-  6: GOTO 12
-  7: R := 3.5
-  8: #tmp2 := R <= 5
-  9: JUMP_EQ #tmp2,11
- 10: GOTO 8
- 11: R := R + 0.5
- 12: END OF PROGRAM
+  2: #tmp0 := I <= 10
+  3: JUMP_EQ #tmp0,14
+  4: J := 0
+  5: #tmp1 := J <= 10
+  6: JUMP_EQ #tmp1,11
+  7: #tmp2 := I * J
+  8: WRITE #tmp2
+  9: J := J + 1
+ 10: GOTO 5
+ 11: WRITELN
+ 12: I := I + 1
+ 13: GOTO 2
+ 14: WRITELN
+ 15: END OF PROGRAM
 
 
 Now Executing Code....
 
 Symbol Table:
 
-    I --->            3 [INTEGER]
-    J --->            2 [INTEGER]
-    R ---> 0.000000 [REAL]
-  0.5 ---> 0.500000 [REAL]
+#tmp2 --->          100 [INTEGER]
+    I --->           11 [INTEGER]
+    J --->           11 [INTEGER]
     1 --->            1 [INTEGER]
-    2 --->            2 [INTEGER]
-    3 --->            3 [INTEGER]
-#tmp0 --->            1 [INTEGER]
-#tmp2 ---> 0.000000 [REAL]
-  3.5 ---> 3.500000 [REAL]
-    5 --->            5 [INTEGER]
+   10 --->           10 [INTEGER]
+#tmp0 --->            0 [INTEGER]
+    0 --->            0 [INTEGER]
+#tmp1 --->            0 [INTEGER]
 
 
 

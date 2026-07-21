@@ -73,26 +73,31 @@
 #include <stdlib.h>
 #include <string.h>
 
-#ifndef NODE_DEFINED
-#define NODE_DEFINED
-typedef struct Node {
-    enum { NUM, VAR, ADD, SUB, MUL, DIV, NODE_SIN, NODE_COS, NODE_TAN, NODE_EXP, NODE_LN } type;
-    struct Node *left, *right;
-    int value;
-} Node;
+#ifndef __RELEASE 
+extern void yy_scan_string(const char *);
 #endif
 
-Node* make_node(int type, Node* left, Node* right, int value);
-Node* differentiate(Node* expr);
-Node* simplify(Node* expr);
-char* print_to_string(Node* e);
-void print_expr(Node* expr);
-void free_expr(Node* expr);
+#ifndef NODE_DEFINED
+#define NODE_DEFINED
+	typedef struct Node {
+		enum { NUM, VAR, ADD, SUB, MUL, DIV, NODE_SIN, NODE_COS, NODE_TAN, NODE_EXP, NODE_LN, NODE_LOG, NODE_POW } type;
+		struct Node *left, *right;
+		int value;
+	} Node;
+#endif
 
-int yylex(void);
-void yyerror(const char *s);
+	Node* make_node(int type, Node* left, Node* right, int value);
+	Node* differentiate(Node* expr);
+	Node* simplify(Node* expr);
+	char* print_to_string(Node* e);
+	void print_expr(Node* expr);
+	void free_expr(Node* expr);
 
-#line 96 "expr.tab.c"
+	int yylex(void);
+	void yyerror(const char *s);
+	
+
+#line 101 "expr.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -130,17 +135,20 @@ enum yysymbol_kind_t
   YYSYMBOL_TAN = 7,                        /* TAN  */
   YYSYMBOL_EXP = 8,                        /* EXP  */
   YYSYMBOL_LN = 9,                         /* LN  */
-  YYSYMBOL_10_ = 10,                       /* '+'  */
-  YYSYMBOL_11_ = 11,                       /* '-'  */
-  YYSYMBOL_12_ = 12,                       /* '*'  */
-  YYSYMBOL_13_ = 13,                       /* '/'  */
-  YYSYMBOL_UMINUS = 14,                    /* UMINUS  */
-  YYSYMBOL_15_ = 15,                       /* '('  */
-  YYSYMBOL_16_ = 16,                       /* ')'  */
-  YYSYMBOL_YYACCEPT = 17,                  /* $accept  */
-  YYSYMBOL_input = 18,                     /* input  */
-  YYSYMBOL_func = 19,                      /* func  */
-  YYSYMBOL_expr = 20                       /* expr  */
+  YYSYMBOL_LOG = 10,                       /* LOG  */
+  YYSYMBOL_POW = 11,                       /* POW  */
+  YYSYMBOL_12_ = 12,                       /* '+'  */
+  YYSYMBOL_13_ = 13,                       /* '-'  */
+  YYSYMBOL_14_ = 14,                       /* '^'  */
+  YYSYMBOL_15_ = 15,                       /* '*'  */
+  YYSYMBOL_16_ = 16,                       /* '/'  */
+  YYSYMBOL_UMINUS = 17,                    /* UMINUS  */
+  YYSYMBOL_18_ = 18,                       /* '('  */
+  YYSYMBOL_19_ = 19,                       /* ')'  */
+  YYSYMBOL_YYACCEPT = 20,                  /* $accept  */
+  YYSYMBOL_input = 21,                     /* input  */
+  YYSYMBOL_func = 22,                      /* func  */
+  YYSYMBOL_expr = 23                       /* expr  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -466,21 +474,21 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  18
+#define YYFINAL  20
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   68
+#define YYLAST   97
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  17
+#define YYNTOKENS  20
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  4
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  15
+#define YYNRULES  17
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  38
+#define YYNSTATES  44
 
 /* YYMAXUTOK -- Last valid token kind.  */
-#define YYMAXUTOK   265
+#define YYMAXUTOK   267
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -498,12 +506,12 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-      15,    16,    12,    10,     2,    11,     2,    13,     2,     2,
+      18,    19,    15,    12,     2,    13,     2,    16,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,    14,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -520,15 +528,15 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6,     7,     8,     9,    14
+       5,     6,     7,     8,     9,    10,    11,    17
 };
 
 #if YYDEBUG
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    57,    57,    68,    69,    70,    71,    72,    75,    76,
-      77,    78,    79,    80,    81,    82
+       0,    62,    62,    73,    74,    75,    76,    77,    78,    81,
+      82,    83,    84,    85,    86,    87,    88,    89
 };
 #endif
 
@@ -545,8 +553,8 @@ static const char *yysymbol_name (yysymbol_kind_t yysymbol) YY_ATTRIBUTE_UNUSED;
 static const char *const yytname[] =
 {
   "\"end of file\"", "error", "\"invalid token\"", "NUMBER", "VARIABLE",
-  "SIN", "COS", "TAN", "EXP", "LN", "'+'", "'-'", "'*'", "'/'", "UMINUS",
-  "'('", "')'", "$accept", "input", "func", "expr", YY_NULLPTR
+  "SIN", "COS", "TAN", "EXP", "LN", "LOG", "POW", "'+'", "'-'", "'^'",
+  "'*'", "'/'", "UMINUS", "'('", "')'", "$accept", "input", "func", "expr", YY_NULLPTR
 };
 
 static const char *
@@ -556,7 +564,7 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-13)
+#define YYPACT_NINF (-18)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -570,10 +578,11 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      12,   -13,   -13,   -12,    -6,    -5,     7,    19,    12,    28,
-     -13,    55,    12,    12,    12,    12,    12,    13,   -13,    12,
-      12,    12,    12,    20,    27,    34,    41,    48,   -13,   -11,
-     -11,   -13,   -13,   -13,   -13,   -13,   -13,   -13
+      14,   -18,   -18,   -17,   -16,   -15,    -8,    -7,     7,    14,
+      29,   -18,    78,    14,    14,    14,    14,    14,    14,    15,
+     -18,    14,    14,    14,    14,    14,    24,    33,    42,    51,
+      60,    69,   -18,    78,    81,    81,    22,    22,   -18,   -18,
+     -18,   -18,   -18,   -18
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -581,22 +590,23 @@ static const yytype_int8 yypact[] =
    means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       0,     8,     9,     0,     0,     0,     0,     0,     0,     0,
-      10,     2,     0,     0,     0,     0,     0,     0,     1,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,    15,    11,
-      12,    13,    14,     3,     6,     4,     5,     7
+       0,     9,    10,     0,     0,     0,     0,     0,     0,     0,
+       0,    11,     2,     0,     0,     0,     0,     0,     0,     0,
+       1,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,    17,    16,    12,    13,    14,    15,     3,     6,
+       4,     5,     7,     8
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -13,   -13,   -13,    -8
+     -18,   -18,   -18,    -9
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-       0,     9,    10,    11
+       0,    10,    11,    12
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -604,48 +614,55 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-      17,    21,    22,    12,    23,    24,    25,    26,    27,    13,
-      14,    29,    30,    31,    32,     1,     2,     3,     4,     5,
-       6,     7,    15,    19,    20,    21,    22,     8,    18,    28,
-      19,    20,    21,    22,    16,     0,    33,    19,    20,    21,
-      22,     0,     0,    34,    19,    20,    21,    22,     0,     0,
-      35,    19,    20,    21,    22,     0,     0,    36,    19,    20,
-      21,    22,     0,     0,    37,    19,    20,    21,    22
+      19,    13,    14,    15,    26,    27,    28,    29,    30,    31,
+      16,    17,    33,    34,    35,    36,    37,     1,     2,     3,
+       4,     5,     6,     7,     8,    18,    21,    22,    23,    20,
+      24,    25,     9,    21,    32,    21,    22,    23,     0,    24,
+      25,     0,     0,    38,    21,    22,    23,     0,    24,    25,
+       0,     0,    39,    21,    22,    23,     0,    24,    25,     0,
+       0,    40,    21,    22,    23,     0,    24,    25,     0,     0,
+      41,    21,    22,    23,     0,    24,    25,     0,     0,    42,
+      21,    22,    23,     0,    24,    25,     0,     0,    43,    21,
+      22,    23,    21,    24,    25,     0,    24,    25
 };
 
 static const yytype_int8 yycheck[] =
 {
-       8,    12,    13,    15,    12,    13,    14,    15,    16,    15,
-      15,    19,    20,    21,    22,     3,     4,     5,     6,     7,
-       8,     9,    15,    10,    11,    12,    13,    15,     0,    16,
-      10,    11,    12,    13,    15,    -1,    16,    10,    11,    12,
-      13,    -1,    -1,    16,    10,    11,    12,    13,    -1,    -1,
-      16,    10,    11,    12,    13,    -1,    -1,    16,    10,    11,
-      12,    13,    -1,    -1,    16,    10,    11,    12,    13
+       9,    18,    18,    18,    13,    14,    15,    16,    17,    18,
+      18,    18,    21,    22,    23,    24,    25,     3,     4,     5,
+       6,     7,     8,     9,    10,    18,    11,    12,    13,     0,
+      15,    16,    18,    11,    19,    11,    12,    13,    -1,    15,
+      16,    -1,    -1,    19,    11,    12,    13,    -1,    15,    16,
+      -1,    -1,    19,    11,    12,    13,    -1,    15,    16,    -1,
+      -1,    19,    11,    12,    13,    -1,    15,    16,    -1,    -1,
+      19,    11,    12,    13,    -1,    15,    16,    -1,    -1,    19,
+      11,    12,    13,    -1,    15,    16,    -1,    -1,    19,    11,
+      12,    13,    11,    15,    16,    -1,    15,    16
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     3,     4,     5,     6,     7,     8,     9,    15,    18,
-      19,    20,    15,    15,    15,    15,    15,    20,     0,    10,
-      11,    12,    13,    20,    20,    20,    20,    20,    16,    20,
-      20,    20,    20,    16,    16,    16,    16,    16
+       0,     3,     4,     5,     6,     7,     8,     9,    10,    18,
+      21,    22,    23,    18,    18,    18,    18,    18,    18,    23,
+       0,    11,    12,    13,    15,    16,    23,    23,    23,    23,
+      23,    23,    19,    23,    23,    23,    23,    23,    19,    19,
+      19,    19,    19,    19
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    17,    18,    19,    19,    19,    19,    19,    20,    20,
-      20,    20,    20,    20,    20,    20
+       0,    20,    21,    22,    22,    22,    22,    22,    22,    23,
+      23,    23,    23,    23,    23,    23,    23,    23
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
-       0,     2,     1,     4,     4,     4,     4,     4,     1,     1,
-       1,     3,     3,     3,     3,     3
+       0,     2,     1,     4,     4,     4,     4,     4,     4,     1,
+       1,     1,     3,     3,     3,     3,     3,     3
 };
 
 
@@ -1109,98 +1126,110 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* input: expr  */
-#line 57 "expr.y"
-          {
+#line 62 "expr.y"
+     {
 	Node* d = differentiate((yyvsp[0].node));
 	Node* s = simplify(d);
 	print_expr(s); printf("\n");
 	free_expr((yyvsp[0].node)); 
 	free_expr(d); 
 	free_expr(s);
-    }
-#line 1122 "expr.tab.c"
+}
+#line 1139 "expr.tab.c"
     break;
 
   case 3: /* func: SIN '(' expr ')'  */
-#line 68 "expr.y"
-                          { (yyval.node) = make_node(NODE_SIN, (yyvsp[-1].node), NULL, 0); }
-#line 1128 "expr.tab.c"
+#line 73 "expr.y"
+                      { (yyval.node) = make_node(NODE_SIN, (yyvsp[-1].node), NULL, 0); }
+#line 1145 "expr.tab.c"
     break;
 
   case 4: /* func: TAN '(' expr ')'  */
-#line 69 "expr.y"
-                          { (yyval.node) = make_node(NODE_TAN, (yyvsp[-1].node), NULL, 0); }
-#line 1134 "expr.tab.c"
+#line 74 "expr.y"
+                      { (yyval.node) = make_node(NODE_TAN, (yyvsp[-1].node), NULL, 0); }
+#line 1151 "expr.tab.c"
     break;
 
   case 5: /* func: EXP '(' expr ')'  */
-#line 70 "expr.y"
-                          { (yyval.node) = make_node(NODE_EXP, (yyvsp[-1].node), NULL, 0); }
-#line 1140 "expr.tab.c"
+#line 75 "expr.y"
+                      { (yyval.node) = make_node(NODE_EXP, (yyvsp[-1].node), NULL, 0); }
+#line 1157 "expr.tab.c"
     break;
 
   case 6: /* func: COS '(' expr ')'  */
-#line 71 "expr.y"
-                          { (yyval.node) = make_node(NODE_COS, (yyvsp[-1].node), NULL, 0); }
-#line 1146 "expr.tab.c"
+#line 76 "expr.y"
+                      { (yyval.node) = make_node(NODE_COS, (yyvsp[-1].node), NULL, 0); }
+#line 1163 "expr.tab.c"
     break;
 
   case 7: /* func: LN '(' expr ')'  */
-#line 72 "expr.y"
-                         { (yyval.node) = make_node(NODE_LN, (yyvsp[-1].node), NULL, 0); }
-#line 1152 "expr.tab.c"
-    break;
-
-  case 8: /* expr: NUMBER  */
-#line 75 "expr.y"
-                     { (yyval.node) = make_node(NUM, NULL, NULL, (yyvsp[0].num)); }
-#line 1158 "expr.tab.c"
-    break;
-
-  case 9: /* expr: VARIABLE  */
-#line 76 "expr.y"
-                       { (yyval.node) = make_node(VAR, NULL, NULL, 0); }
-#line 1164 "expr.tab.c"
-    break;
-
-  case 10: /* expr: func  */
 #line 77 "expr.y"
-                       { (yyval.node) = (yyvsp[0].node); }
-#line 1170 "expr.tab.c"
+                      { (yyval.node) = make_node(NODE_LN, (yyvsp[-1].node), NULL, 0);  }
+#line 1169 "expr.tab.c"
     break;
 
-  case 11: /* expr: expr '+' expr  */
+  case 8: /* func: LOG '(' expr ')'  */
 #line 78 "expr.y"
-                       { (yyval.node) = make_node(ADD, (yyvsp[-2].node), (yyvsp[0].node), 0); }
-#line 1176 "expr.tab.c"
+                      { (yyval.node) = make_node(NODE_LOG, (yyvsp[-1].node), NULL, 0);  }
+#line 1175 "expr.tab.c"
     break;
 
-  case 12: /* expr: expr '-' expr  */
-#line 79 "expr.y"
-                       { (yyval.node) = make_node(SUB, (yyvsp[-2].node), (yyvsp[0].node), 0); }
-#line 1182 "expr.tab.c"
-    break;
-
-  case 13: /* expr: expr '*' expr  */
-#line 80 "expr.y"
-                       { (yyval.node) = make_node(MUL, (yyvsp[-2].node), (yyvsp[0].node), 0); }
-#line 1188 "expr.tab.c"
-    break;
-
-  case 14: /* expr: expr '/' expr  */
+  case 9: /* expr: NUMBER  */
 #line 81 "expr.y"
-                       { (yyval.node) = make_node(DIV, (yyvsp[-2].node), (yyvsp[0].node), 0); }
-#line 1194 "expr.tab.c"
+                 { (yyval.node) = make_node(NUM, NULL, NULL, (yyvsp[0].num)); }
+#line 1181 "expr.tab.c"
     break;
 
-  case 15: /* expr: '(' expr ')'  */
+  case 10: /* expr: VARIABLE  */
 #line 82 "expr.y"
-                       { (yyval.node) = (yyvsp[-1].node); }
-#line 1200 "expr.tab.c"
+                   { (yyval.node) = make_node(VAR, NULL, NULL, 0); }
+#line 1187 "expr.tab.c"
+    break;
+
+  case 11: /* expr: func  */
+#line 83 "expr.y"
+                   { (yyval.node) = (yyvsp[0].node); }
+#line 1193 "expr.tab.c"
+    break;
+
+  case 12: /* expr: expr '+' expr  */
+#line 84 "expr.y"
+                   { (yyval.node) = make_node(ADD, (yyvsp[-2].node), (yyvsp[0].node), 0); }
+#line 1199 "expr.tab.c"
+    break;
+
+  case 13: /* expr: expr '-' expr  */
+#line 85 "expr.y"
+                   { (yyval.node) = make_node(SUB, (yyvsp[-2].node), (yyvsp[0].node), 0); }
+#line 1205 "expr.tab.c"
+    break;
+
+  case 14: /* expr: expr '*' expr  */
+#line 86 "expr.y"
+                   { (yyval.node) = make_node(MUL, (yyvsp[-2].node), (yyvsp[0].node), 0); }
+#line 1211 "expr.tab.c"
+    break;
+
+  case 15: /* expr: expr '/' expr  */
+#line 87 "expr.y"
+                   { (yyval.node) = make_node(DIV, (yyvsp[-2].node), (yyvsp[0].node), 0); }
+#line 1217 "expr.tab.c"
+    break;
+
+  case 16: /* expr: expr POW expr  */
+#line 88 "expr.y"
+                   { (yyval.node) = make_node(NODE_POW, (yyvsp[-2].node), (yyvsp[0].node), 0); }
+#line 1223 "expr.tab.c"
+    break;
+
+  case 17: /* expr: '(' expr ')'  */
+#line 89 "expr.y"
+                   { (yyval.node) = (yyvsp[-1].node); }
+#line 1229 "expr.tab.c"
     break;
 
 
-#line 1204 "expr.tab.c"
+#line 1233 "expr.tab.c"
 
       default: break;
     }
@@ -1393,452 +1422,629 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 85 "expr.y"
+#line 92 "expr.y"
 
 
 Node* make_node(int type, Node* left, Node* right, int value) {
-    Node* n = malloc(sizeof(Node));
-    n->type = type;
-    n->left = left;
-    n->right = right;
-    n->value = value;
-    return n;
+	Node* n = malloc(sizeof(Node));
+	n->type = type;
+	n->left = left;
+	n->right = right;
+	n->value = value;
+	return n;
 }
 
 Node* differentiate(Node* e) {
-    switch (e->type) {
+	switch (e->type) {
 
-case NODE_TAN:
-		return make_node(MUL,
-			 make_node(DIV,
-				   make_node(NUM, NULL, NULL, 1),
-				   make_node(MUL,
-					     make_node(NODE_COS, e->left, NULL, 0),
-					     make_node(NODE_COS, e->left, NULL, 0),
-					     0),
-				   0),
-			 differentiate(e->left),
-			 0);
+		case NODE_TAN:
+			return make_node(MUL,
+					make_node(DIV,
+						make_node(NUM, NULL, NULL, 1),
+						make_node(MUL,
+							make_node(NODE_COS, e->left, NULL, 0),
+							make_node(NODE_COS, e->left, NULL, 0),
+							0),
+						0),
+					differentiate(e->left),
+					0);
 
-case NODE_EXP:
-		return make_node(MUL,
-			 make_node(NODE_EXP, e->left, NULL, 0),
-			 differentiate(e->left),
-			 0);
+		case NODE_EXP:
+			return make_node(MUL,
+					make_node(NODE_EXP, e->left, NULL, 0),
+					differentiate(e->left),
+					0);
 
-case NODE_LN:
-                return make_node(DIV,
-                         differentiate(e->left),
-			 e->left,
-                         0);
+		case NODE_LN:
+		case NODE_LOG:
+			return make_node(DIV,
+					differentiate(e->left),
+					e->left,
+					0);
+		case NODE_POW:
+			// d/dx(u^v) = v*u^(v-1)*u' + u^v*ln(u)*v' (general power rule)
+			// For v = constant: d/dx(u^n) = n*u^(n-1)*u'
+			// For u = x, v = n (constant): d/dx(x^n) = n*x^(n-1)
+			if (e->right && e->right->type == NUM) {
+				// d/dx(u^n) = n*u^(n-1)*u'
+				int n = e->right->value;
+				return make_node(MUL,
+						make_node(NUM, NULL, NULL, n),
+						make_node(MUL,
+								make_node(NODE_POW, e->left, make_node(NUM, NULL, NULL, n-1), 0),
+								differentiate(e->left),
+								0),
+						0);
+			} else {
+				// General case: d/dx(u^v) = u^v * (v*u^(v-1)*u' + ln(u)*v')
+				return make_node(MUL,
+						make_node(NODE_POW, e->left, e->right, 0),
+						make_node(ADD,
+								make_node(MUL,
+										e->right,
+										make_node(MUL,
+												make_node(NODE_POW, e->left, make_node(NUM, NULL, NULL, 1), 0),
+												differentiate(e->left),
+												0),
+										0),
+								make_node(MUL,
+										make_node(NODE_LN, e->left, NULL, 0),
+										differentiate(e->right),
+										0),
+								0),
+						0);
+			}
 
-case NUM: return make_node(NUM, NULL, NULL, 0);
-	case VAR: return make_node(NUM, NULL, NULL, 1);
-	case ADD: return make_node(ADD, differentiate(e->left) , differentiate(e->right) , 0);
-	case SUB: return make_node(SUB, differentiate(e->left), differentiate(e->right), 0);
-	case MUL:
-	    return make_node(ADD,
-		make_node(MUL, differentiate(e->left), e->right, 0),
-		make_node(MUL, e->left, differentiate(e->right), 0),
-		0
-	    );
-	case DIV:
-	    return make_node(DIV,
-		make_node(SUB,
-		    make_node(MUL, differentiate(e->left), e->right, 0),
-		    make_node(MUL, e->left, differentiate(e->right), 0),
-		    0
-		),
-		make_node(MUL, e->right, e->right, 0),
-		0
-	    );
-	case NODE_SIN:
-	    return make_node(MUL,
-		differentiate(e->left),
-		make_node(NODE_COS, e->left, NULL, 0),
-		0
-	    );
-	case NODE_COS:
-	    return make_node(MUL,
-		make_node(NUM, NULL, NULL, -1),
-		make_node(MUL,
-		    simplify(differentiate(e->left)),
-		    make_node(NODE_SIN, e->left, NULL, 0),
-		    0
-		),
-		0
-	    );
-	default: return NULL;
-    }
+
+		case NUM: return make_node(NUM, NULL, NULL, 0);
+		case VAR: return make_node(NUM, NULL, NULL, 1);
+		case ADD: return make_node(ADD, differentiate(e->left) , differentiate(e->right) , 0);
+		case SUB: return make_node(SUB, differentiate(e->left), differentiate(e->right), 0);
+		case MUL:
+			  return make_node(ADD,
+					  make_node(MUL, differentiate(e->left), e->right, 0),
+					  make_node(MUL, e->left, differentiate(e->right), 0),
+					  0
+					  );
+		case DIV:
+			  return make_node(DIV,
+					  make_node(SUB,
+						  make_node(MUL, differentiate(e->left), e->right, 0),
+						  make_node(MUL, e->left, differentiate(e->right), 0),
+						  0
+						  ),
+					  make_node(MUL, e->right, e->right, 0),
+					  0
+					  );
+		case NODE_SIN:
+			  return make_node(MUL,
+					  differentiate(e->left),
+					  make_node(NODE_COS, e->left, NULL, 0),
+					  0
+					  );
+		case NODE_COS:
+			  return make_node(MUL,
+					  make_node(NUM, NULL, NULL, -1),
+					  make_node(MUL,
+						  differentiate(e->left),
+						  make_node(NODE_SIN, e->left, NULL, 0),
+						  0
+						  ),
+					  0
+					  );
+		default: return NULL;
+	}
 }
 
+// Forward declarations
+Node* distribute(Node* e);
+Node* evaluate_constant(Node* e);
+int nodes_equal(Node* a, Node* b);
+void term_from_product(Node* e, int* coef, int* x_power, Node** trans);
+typedef struct Term {
+	int coef;
+	int x_power;
+	Node* trans;
+	struct Term* next;
+} Term;
+Term* flatten_to_terms(Node* e);
+Term* negate_terms(Term* t);
+Term* concat_terms(Term* a, Term* b);
+void free_terms(Term* t);
+Term* collect_terms(Term* t);
+Node* terms_to_expr(Term* t);
+Node* deep_copy_node(Node* e);
+Node* simplify_arithmetic(Node* e);
 
 Node* simplify(Node* e) {
-    if (!e) return NULL;
+	if (!e) return NULL;
 
-    if( !e->left )
-	    e->left = simplify(e->left);
+	// Deep copy to avoid destroying the input tree
+	e = deep_copy_node(e);
 
-    if( !e->right )
-	    e->right = simplify(e->right);
+	// First, distribute and evaluate constants
+	e = distribute(e);
+	e = evaluate_constant(e);
 
-// Combine (x * x) + (x * (2 * x)) => 3 * x * x
-    if (e->type == ADD &&
-	!e->left && !e->right &&
-	e->left->type == MUL && e->right->type == MUL) {
-
-	Node *a1 = e->left->left, *a2 = e->left->right;
-	Node *b1 = e->right->left, *b2 = e->right->right;
-
-if (a1 && a2 && b1 && b2 &&
-	    a1->type == VAR && a2->type == VAR &&
-	    b1->type == VAR &&
-	    b2->type == MUL && b2->left && b2->right &&
-	    b2->left->type == NUM && b2->right->type == VAR) {
-
-int coef = b2->left->value + 1;
-	    Node* count = make_node(NUM, NULL, NULL, coef);
-	    Node* var1 = make_node(VAR, NULL, NULL, 0);
-	    Node* var2 = make_node(VAR, NULL, NULL, 0);
-	    Node* inner = make_node(MUL, var1, var2, 0);
-	    Node* res = make_node(MUL, count, inner, 0);
-	    free_expr(e);
-	    return simplify(res);
-	}
-    }
-
-
-
-
-// Advanced combine: (a * x * x * x) + (b * x * x * x) => (a + b) * x * x * x
-    if (e->type == ADD &&
-	e->left && e->left->type == MUL &&
-	e->right && e->right->type == MUL) {
-
-Node *l1 = e->left, *r1 = e->right;
-
-// Flatten helper
-	Node* flatten_mul(Node* n, int* coef, Node** term) {
-	    if (!n) return NULL;
-	    if (n->type == NUM) {
-		*coef *= n->value;
-		return NULL;
-	    } else if (n->type == VAR) {
-		*term = make_node(VAR, NULL, NULL, 0);
-		return NULL;
-	    } else if (n->type == MUL) {
-		flatten_mul(n->left, coef, term);
-		flatten_mul(n->right, coef, term);
-	    } else {
-		*term = simplify(n);
-	    }
-	    return NULL;
-	}
-
-int coefL = 1, coefR = 1;
-	Node *tL = NULL, *tR = NULL;
-	flatten_mul(l1, &coefL, &tL);
-	flatten_mul(r1, &coefR, &tR);
-
-if (tL && tR && tL->type == MUL && tR->type == MUL &&
-	    strcmp(print_to_string(tL), print_to_string(tR)) == 0) {
-	    int total = coefL + coefR;
-	    Node* const_node = make_node(NUM, NULL, NULL, total);
-	    Node* new_mul = make_node(MUL, const_node, tL, 0);
-	    free_expr(tR);
-	    free_expr(e);
-	    return simplify(new_mul);
-	}
-    }
-
-
-// Identity simplifications
-
-// Fold nested constant multiplications: 4 * (3 * e) => 12 * e
-    if (e->type == MUL &&
-	e->left && e->right &&
-	e->left->type == NUM &&
-	e->right->type == MUL &&
-	e->right->left && e->right->left->type == NUM) {
-
-int folded = e->left->value * e->right->left->value;
-	Node* folded_const = make_node(NUM, NULL, NULL, folded);
-	Node* new_mul = make_node(MUL, folded_const, e->right->right, 0);
-	free(e->right->left);
-	free(e->right);
-	free(e->left);
-	free(e);
-	return simplify(new_mul);
-    }
-
-// 1 * e => e
-    if (e->type == MUL) {
-	if (e->left && e->left->type == NUM && e->left->value == 1) {
-	    Node* res = e->right;
-	    free(e->left);
-	    free(e);
-	    return simplify(res);
-	}
-	if (e->right && e->right->type == NUM && e->right->value == 1) {
-	    Node* res = e->left;
-	    free(e->right);
-	    free(e);
-	    return simplify(res);
-	}
-    }
-
-// 0 * e => 0
-    if (e->type == MUL) {
-	if ((e->left && e->left->type == NUM && e->left->value == 0) ||
-	    (e->right && e->right->type == NUM && e->right->value == 0)) {
-	    free_expr(e);
-	    return make_node(NUM, NULL, NULL, 0);
-	}
-    }
-
-// e + 0 or 0 + e => e
-    if (e->type == ADD) {
-	if (e->left && e->left->type == NUM && e->left->value == 0) {
-	    Node* res = e->right;
-	    free(e->left);
-	    free(e);
-	    return simplify(res);
-	}
-	if (e->right && e->right->type == NUM && e->right->value == 0) {
-	    Node* res = e->left;
-	    free(e->right);
-	    free(e);
-	    return simplify(res);
-	}
-    }
-
-// e - 0 => e
-    if (e->type == SUB && e->right && e->right->type == NUM && e->right->value == 0) {
-	Node* res = e->left;
-	free(e->right);
-	free(e);
-	return simplify(res);
-    }
-
-// e / 1 => e
-    if (e->type == DIV && e->right && e->right->type == NUM && e->right->value == 1) {
-	Node* res = e->left;
-	free(e->right);
-	free(e);
-	return simplify(res);
-    }
-
-
-// Simplify x + x => 2 * x
-    if (e->type == ADD &&
-	e->left && e->right &&
-	e->left->type == VAR &&
-	e->right->type == VAR) {
-	Node* coeff = make_node(NUM, NULL, NULL, 2);
-	Node* var = make_node(VAR, NULL, NULL, 0);
-	Node* res = make_node(MUL, coeff, var, 0);
+	// Flatten to terms, collect, rebuild
+	Term* terms = flatten_to_terms(e);
 	free_expr(e);
-	return simplify(res);
-    }
 
-// Combine (x * x) + (2 * x * x) => 3 * x * x
-    if (e->type == ADD &&
-	e->left && e->right &&
-	e->left->type == MUL && e->right->type == MUL) {
+	Term* collected = collect_terms(terms);
+	terms = NULL;
+	free_terms(terms);
 
-Node *a1 = e->left->left, *a2 = e->left->right;
-	Node *b1 = e->right->left, *b2 = e->right->right;
+	Node* result = terms_to_expr(collected);
+	free_terms(collected);
 
-// Handle pattern: (x * x) + (NUM * (x * x))
-	if (a1 && a2 && b1 && b2 &&
-	    a1->type == VAR && a2->type == VAR &&
-	    b1->type == NUM &&
-	    b2->type == MUL && b2->left && b2->right &&
-	    b2->left->type == VAR && b2->right->type == VAR) {
-
-int coef = b1->value + 1;
-	    Node* count = make_node(NUM, NULL, NULL, coef);
-	    Node* var1 = make_node(VAR, NULL, NULL, 0);
-	    Node* var2 = make_node(VAR, NULL, NULL, 0);
-	    Node* inner = make_node(MUL, var1, var2, 0);
-	    Node* res = make_node(MUL, count, inner, 0);
-	    free_expr(e);
-	    return simplify(res);
-	}
-
-// Match: (x * x) + (x * (x + x)) => 3 * x * x
-	if (a1 && a2 && b1 && b2 &&
-	    a1->type == VAR && a2->type == VAR &&
-	    b1->type == VAR &&
-	    b2->type == ADD &&
-	    b2->left && b2->right &&
-	    b2->left->type == VAR && b2->right->type == VAR) {
-
-Node* count = make_node(NUM, NULL, NULL, 3);
-	    Node* var1 = make_node(VAR, NULL, NULL, 0);
-	    Node* var2 = make_node(VAR, NULL, NULL, 0);
-	    Node* inner = make_node(MUL, var1, var2, 0);
-	    Node* res = make_node(MUL, count, inner, 0);
-	    free_expr(e);
-	    return simplify(res);
-	}
-    }
-    // Combine (a * x * x) + (b * x * x) => (a + b) * x * x
-    if (e->type == ADD &&
-	e->left && e->right &&
-	e->left->type == MUL && e->right->type == MUL) {
-
-Node *a1 = e->left->left, *a2 = e->left->right;
-	Node *b1 = e->right->left, *b2 = e->right->right;
-
-// Normalize if NUM is on the right
-	if (a1->type == NUM) { Node* tmp = a1; a1 = a2; a2 = tmp; }
-	if (b1->type == NUM) { Node* tmp = b1; b1 = b2; b2 = tmp; }
-
-if (a2->type == NUM && b2->type == NUM &&
-	    a1->type == MUL && b1->type == MUL &&
-	    a1->left->type == VAR && a1->right->type == VAR &&
-	    b1->left->type == VAR && b1->right->type == VAR) {
-
-int coef = a2->value + b2->value;
-	    Node* folded = make_node(NUM, NULL, NULL, coef);
-	    Node* var1 = make_node(VAR, NULL, NULL, 0);
-	    Node* var2 = make_node(VAR, NULL, NULL, 0);
-	    Node* inner = make_node(MUL, var1, var2, 0);
-	    Node* res = make_node(MUL, folded, inner, 0);
-	    free_expr(e);
-	    return simplify(res);
-	}
-    }
-
-return e;
+	return result;
 }
+
+// Simplify arithmetic expressions: 0*x=0, 1*x=x, 0+x=x
+Node* simplify_arithmetic(Node* e) {
+    if (!e) return NULL;
+    
+    e->left = simplify_arithmetic(e->left);
+    e->right = simplify_arithmetic(e->right);
+    
+    // 0 * x = 0
+    if (e->type == MUL && e->left && e->left->type == NUM && e->left->value == 0) {
+        Node* res = make_node(NUM, NULL, NULL, 0);
+        free(e);
+        return res;
+    }
+    
+    // x * 0 = 0
+    if (e->type == MUL && e->right && e->right->type == NUM && e->right->value == 0) {
+        Node* res = make_node(NUM, NULL, NULL, 0);
+        free(e);
+        return res;
+    }
+    
+    // 1 * x = x
+    if (e->type == MUL && e->left && e->left->type == NUM && e->left->value == 1) {
+        Node* res = e->right;
+        e->right = NULL;
+        free(e);
+        return res;
+    }
+    
+    // x * 1 = x
+    if (e->type == MUL && e->right && e->right->type == NUM && e->right->value == 1) {
+        Node* res = e->left;
+        e->left = NULL;
+        free(e);
+        return res;
+    }
+    
+    // 0 + x = x
+    if (e->type == ADD && e->left && e->left->type == NUM && e->left->value == 0) {
+        Node* res = e->right;
+        e->right = NULL;
+        free(e);
+        return res;
+    }
+    
+    // x + 0 = x
+    if (e->type == ADD && e->right && e->right->type == NUM && e->right->value == 0) {
+        Node* res = e->left;
+        e->left = NULL;
+        free(e);
+        return res;
+    }
+    
+    // x - 0 = x
+    if (e->type == SUB && e->right && e->right->type == NUM && e->right->value == 0) {
+        Node* res = e->left;
+        e->left = NULL;
+        free(e);
+        return res;
+    }
+    
+    // 0 - x = -x
+    if (e->type == SUB && e->left && e->left->type == NUM && e->left->value == 0) {
+        Node* neg = make_node(MUL, make_node(NUM, NULL, NULL, -1), e->right, 0);
+        e->right = NULL;
+        free(e);
+        return simplify_arithmetic(neg);
+    }
+    
+    // x / 1 = x
+    if (e->type == DIV && e->right && e->right->type == NUM && e->right->value == 1) {
+        Node* res = e->left;
+        e->left = NULL;
+        free(e);
+        return res;
+    }
+    
+    return e;
+}
+
+
+Node* deep_copy_node(Node* e) {
+	if (!e) return NULL;
+	Node* n = make_node(e->type, NULL, NULL, e->value);
+	n->left = deep_copy_node(e->left);
+	n->right = deep_copy_node(e->right);
+	return n;
+}
+
+// Distribute multiplication over addition: (a+b)*c => a*c + b*c
+Node* distribute(Node* e) {
+	if (!e) return NULL;
+	e->left = distribute(e->left);
+	e->right = distribute(e->right);
+
+	if (e->type == MUL && e->left && e->right && e->left->type == ADD) {
+		Node* a = e->left->left;
+		Node* b = e->left->right;
+		Node* c = e->right;
+		Node* new_add = make_node(ADD, make_node(MUL, a, c, 0), make_node(MUL, b, c, 0), 0);
+		free(e->left);
+		free(e);
+		return distribute(new_add);
+	}
+
+	if (e->type == MUL && e->left && e->right && e->right->type == ADD) {
+		Node* a = e->left;
+		Node* b = e->right->left;
+		Node* c = e->right->right;
+		Node* new_add = make_node(ADD, make_node(MUL, a, b, 0), make_node(MUL, a, c, 0), 0);
+		free(e->right);
+		free(e);
+		return distribute(new_add);
+	}
+
+	return e;
+}
+
+// Evaluate constant subexpressions: sin(0)=0, cos(0)=1, exp(0)=1, ln(1)=0
+Node* evaluate_constant(Node* e) {
+	if (!e) return NULL;
+	e->left = evaluate_constant(e->left);
+	e->right = evaluate_constant(e->right);
+
+	if (e->type == NODE_SIN && e->left && e->left->type == NUM && e->left->value == 0) {
+		Node* res = make_node(NUM, NULL, NULL, 0);
+		free(e);
+		return res;
+	}
+	if (e->type == NODE_COS && e->left && e->left->type == NUM && e->left->value == 0) {
+		Node* res = make_node(NUM, NULL, NULL, 1);
+		free(e);
+		return res;
+	}
+	if (e->type == NODE_EXP && e->left && e->left->type == NUM && e->left->value == 0) {
+		Node* res = make_node(NUM, NULL, NULL, 1);
+		free(e);
+		return res;
+	}
+	if ((e->type == NODE_LN || e->type == NODE_LOG) && e->left && e->left->type == NUM && e->left->value == 1) {
+		Node* res = make_node(NUM, NULL, NULL, 0);
+		free(e);
+		return res;
+	}
+
+	return e;
+}
+
+// Check if two nodes are structurally equal
+int nodes_equal(Node* a, Node* b) {
+	if (!a && !b) return 1;
+	if (!a || !b) return 0;
+	if (a->type != b->type) return 0;
+	if (a->type == NUM) return a->value == b->value;
+	if (a->type == VAR) return 1;
+	if (nodes_equal(a->left, b->left) && nodes_equal(a->right, b->right)) return 1;
+	return 0;
+}
+
+// Helper function to process a product chain without resetting
+void term_from_product_inner(Node* e, int* coef, int* x_power, Node** trans) {
+	while (e) {
+		if (e->type == NUM) {
+			*coef *= e->value;
+			e = NULL;
+		} else if (e->type == VAR) {
+			(*x_power)++;
+			e = NULL;
+		} else if (e->type == MUL) {
+			term_from_product_inner(e->left, coef, x_power, trans);
+			e = e->right;
+		} else {
+			if (*trans) {
+				*trans = make_node(MUL, *trans, e, 0);
+			} else {
+				*trans = e;
+			}
+			e = NULL;
+		}
+	}
+}
+
+// Extract coefficient, x_power, and transcendental part from a product chain
+void term_from_product(Node* e, int* coef, int* x_power, Node** trans) {
+	*coef = 1;
+	*x_power = 0;
+	*trans = NULL;
+	term_from_product_inner(e, coef, x_power, trans);
+}
+
+// Convert AST to linked list of terms
+Term* flatten_to_terms(Node* e) {
+	if (!e) return NULL;
+
+	if (e->type == ADD) {
+		return concat_terms(flatten_to_terms(e->left), flatten_to_terms(e->right));
+	}
+
+	if (e->type == SUB) {
+		Term* right = flatten_to_terms(e->right);
+		right = negate_terms(right);
+		return concat_terms(flatten_to_terms(e->left), right);
+	}
+
+	// Single term (product or atomic)
+	int coef = 1, x_power = 0;
+	Node* trans = NULL;
+	term_from_product(e, &coef, &x_power, &trans);
+
+	Term* t = malloc(sizeof(Term));
+	t->coef = coef;
+	t->x_power = x_power;
+	t->trans = trans;
+	t->next = NULL;
+	return t;
+}
+
+Term* negate_terms(Term* t) {
+	if (!t) return NULL;
+	t->coef = -t->coef;
+	return t;
+}
+
+Term* concat_terms(Term* a, Term* b) {
+	if (!a) return b;
+	if (!b) return a;
+	Term* t = a;
+	while (t->next) t = t->next;
+	t->next = b;
+	return a;
+}
+
+void free_terms(Term* t) {
+	while (t) {
+		Term* next = t->next;
+		if (t->trans) free_expr(t->trans);
+		free(t);
+		t = next;
+	}
+}
+
+// Collect terms with matching (x_power, trans)
+Term* collect_terms(Term* t) {
+	if (!t) return NULL;
+
+	Term* result = NULL;
+	while (t) {
+		Term* next = t->next;
+		t->next = NULL;
+
+		Term* match = result;
+		Term* prev = NULL;
+		while (match) {
+			if (match->x_power == t->x_power && nodes_equal(match->trans, t->trans)) {
+				match->coef += t->coef;
+				t->trans = NULL;  // Detach to avoid double-free
+				t->next = NULL;  // Prevent double-free
+				if (prev) prev->next = match;
+				else result = match;
+				// Remove term if coefficient is 0
+				if (match->coef == 0) {
+					Term* to_remove = match;
+					if (prev) prev->next = match->next;
+					else result = match->next;
+					free_terms(to_remove);
+				}
+				break;
+			}
+			prev = match;
+			match = match->next;
+		}
+
+		if (!match) {
+			t->next = result;
+			result = t;
+		}
+
+		t = next;
+	}
+
+	// Remove any remaining terms with coefficient 0
+	Term** pp = &result;
+	while (*pp) {
+		Term* curr = *pp;
+		if (curr->coef == 0) {
+			*pp = curr->next;
+			curr->next = NULL;
+			free_terms(curr);
+		} else {
+			pp = &curr->next;
+		}
+	}
+
+	return result;
+}
+
+// Rebuild AST from collected terms
+Node* terms_to_expr(Term* t) {
+	if (!t) return make_node(NUM, NULL, NULL, 0);
+
+	Node* result = NULL;
+	while (t) {
+		Node* term_expr = NULL;
+		Node* trans_copy = t->trans ? deep_copy_node(t->trans) : NULL;
+
+		if (t->trans && t->x_power > 0) {
+			Node* vars = NULL;
+			for (int i = 0; i < t->x_power; i++) {
+				Node* v = make_node(VAR, NULL, NULL, 0);
+				vars = vars ? make_node(MUL, vars, v, 0) : v;
+			}
+			term_expr = make_node(MUL, vars, trans_copy, 0);
+		} else if (t->x_power > 0) {
+			Node* vars = NULL;
+			for (int i = 0; i < t->x_power; i++) {
+				Node* v = make_node(VAR, NULL, NULL, 0);
+				vars = vars ? make_node(MUL, vars, v, 0) : v;
+			}
+			term_expr = vars;
+		} else if (t->trans) {
+			term_expr = trans_copy;
+		} else {
+			term_expr = make_node(NUM, NULL, NULL, t->coef);
+		}
+
+		if (t->coef != 1) {
+			term_expr = make_node(MUL, make_node(NUM, NULL, NULL, t->coef), term_expr, 0);
+		}
+
+		result = result ? make_node(ADD, result, term_expr, 0) : term_expr;
+		t = t->next;
+	}
+
+	return result;
+}
+
 
 
 void print_expr(Node* e) {
-    if (!e) return;
-    switch (e->type) {
-	case NUM: printf("%d", e->value); break;
-	case VAR: printf("x"); break;
-	case ADD: printf("("); print_expr(e->left); printf(" + "); print_expr(e->right); printf(")"); break;
-	case SUB: printf("("); print_expr(e->left); printf(" - "); print_expr(e->right); printf(")"); break;
-	case MUL: printf("("); print_expr(e->left); printf(" * "); print_expr(e->right); printf(")"); break;
-	case DIV: printf("("); print_expr(e->left); printf(" / "); print_expr(e->right); printf(")"); break;
-	case NODE_SIN: printf("sin("); print_expr(e->left); printf(")"); break;
-	case NODE_COS: printf("cos("); print_expr(e->left); printf(")"); break;
-	case NODE_TAN: printf("tan("); print_expr(e->left); printf(")"); break;
-	case NODE_LN: printf("ln("); print_expr(e->left); printf(")"); break;
-    }
+	if (!e) return;
+	switch (e->type) {
+		case NUM: printf("%d", e->value); break;
+		case VAR: printf("x"); break;
+		case ADD: printf("("); print_expr(e->left); printf(" + "); print_expr(e->right); printf(")"); break;
+		case SUB: printf("("); print_expr(e->left); printf(" - "); print_expr(e->right); printf(")"); break;
+		case MUL: printf("("); print_expr(e->left); printf(" * "); print_expr(e->right); printf(")"); break;
+		case DIV: printf("("); print_expr(e->left); printf(" / "); print_expr(e->right); printf(")"); break;
+		case NODE_SIN: printf("sin("); print_expr(e->left); printf(")"); break;
+		case NODE_COS: printf("cos("); print_expr(e->left); printf(")"); break;
+		case NODE_TAN: printf("tan("); print_expr(e->left); printf(")"); break;
+		case NODE_LN: printf("ln("); print_expr(e->left); printf(")"); break;
+		case NODE_LOG: printf("log("); print_expr(e->left); printf(")"); break;
+		case NODE_POW: print_expr(e->left); printf("^"); print_expr(e->right); break;
+	}
 }
 
 void free_expr(Node* e) {
-    if (!e) return;
+	if (!e) return;
 
-if( !e->left ) 
-	    free_expr(e->left);
-    if ( !e->right )
-	    free_expr(e->right);
-/*
-    free(e);
-*/
+	if( !e->left ) 
+		free_expr(e->left);
+	if ( !e->right )
+		free_expr(e->right);
+	/*
+	   free(e);
+	 */
 }
 
 void yyerror(const char *s) {
-    fprintf(stderr, "Error: %s\n", s);
+	fprintf(stderr, "Error: %s\n", s);
 }
 
 char* print_to_string_rec(Node* e, char* buf) {
-    if (!e) return buf;
+	if (!e) return buf;
 
-switch (e->type) {
-	case NUM:
-	    buf += sprintf(buf, "%d", e->value);
-	    break;
-	case VAR:
-	    buf += sprintf(buf, "x");
-	    break;
-	case ADD:
-	    *buf++ = '(';
-	    buf = print_to_string_rec(e->left, buf);
-	    buf += sprintf(buf, "+");
-	    buf = print_to_string_rec(e->right, buf);
-	    *buf++ = ')';
-	    break;
-	case SUB:
-	    *buf++ = '(';
-	    buf = print_to_string_rec(e->left, buf);
-	    buf += sprintf(buf, "-");
-	    buf = print_to_string_rec(e->right, buf);
-	    *buf++ = ')';
-	    break;
-	case MUL:
-	    *buf++ = '(';
-	    buf = print_to_string_rec(e->left, buf);
-	    buf += sprintf(buf, "*");
-	    buf = print_to_string_rec(e->right, buf);
-	    *buf++ = ')';
-	    break;
-	case DIV:
-	    *buf++ = '(';
-	    buf = print_to_string_rec(e->left, buf);
-	    buf += sprintf(buf, "/");
-	    buf = print_to_string_rec(e->right, buf);
-	    *buf++ = ')';
-	    break;
-	case NODE_SIN:
-	    buf += sprintf(buf, "sin(");
-	    buf = print_to_string_rec(e->left, buf);
-	    *buf++ = ')';
-	    break;
-	case NODE_COS:
-	    buf += sprintf(buf, "cos(");
-	    buf = print_to_string_rec(e->left, buf);
-	    *buf++ = ')';
-	    break;
-	case NODE_EXP:
-	    buf += sprintf(buf, "exp(");
-	    buf = print_to_string_rec(e->left, buf);
-	    *buf++ = ')';
-	    break;
-	case NODE_TAN:
-	    buf += sprintf(buf, "tan(");
-	    buf = print_to_string_rec(e->left, buf);
-	    *buf++ = ')';
-	    break;
-    }
-    *buf = '\0';
-    return buf;
+	switch (e->type) {
+		case NUM:
+			buf += sprintf(buf, "%d", e->value);
+			break;
+		case VAR:
+			buf += sprintf(buf, "x");
+			break;
+		case ADD:
+			*buf++ = '(';
+			buf = print_to_string_rec(e->left, buf);
+			buf += sprintf(buf, "+");
+			buf = print_to_string_rec(e->right, buf);
+			*buf++ = ')';
+			break;
+		case SUB:
+			*buf++ = '(';
+			buf = print_to_string_rec(e->left, buf);
+			buf += sprintf(buf, "-");
+			buf = print_to_string_rec(e->right, buf);
+			*buf++ = ')';
+			break;
+		case MUL:
+			*buf++ = '(';
+			buf = print_to_string_rec(e->left, buf);
+			buf += sprintf(buf, "*");
+			buf = print_to_string_rec(e->right, buf);
+			*buf++ = ')';
+			break;
+		case DIV:
+			*buf++ = '(';
+			buf = print_to_string_rec(e->left, buf);
+			buf += sprintf(buf, "/");
+			buf = print_to_string_rec(e->right, buf);
+			*buf++ = ')';
+			break;
+		case NODE_SIN:
+			buf += sprintf(buf, "sin(");
+			buf = print_to_string_rec(e->left, buf);
+			*buf++ = ')';
+			break;
+		case NODE_COS:
+			buf += sprintf(buf, "cos(");
+			buf = print_to_string_rec(e->left, buf);
+			*buf++ = ')';
+			break;
+		case NODE_EXP:
+			buf += sprintf(buf, "exp(");
+			buf = print_to_string_rec(e->left, buf);
+			*buf++ = ')';
+			break;
+		case NODE_TAN:
+			buf += sprintf(buf, "tan(");
+			buf = print_to_string_rec(e->left, buf);
+			*buf++ = ')';
+			break;
+	}
+	*buf = '\0';
+	return buf;
 }
 
 char* print_to_string(Node* e) {
-    static char buffer[1024];
-    buffer[0] = '\0';
-    print_to_string_rec(e, buffer);
-    return buffer;
+	static char buffer[1024];
+	buffer[0] = '\0';
+	print_to_string_rec(e, buffer);
+	return buffer;
 }
 
 
 void main(void) {
 
 #ifndef __RELEASE 
-const char* test_cases[] = {
-	"sin(x)", "cos(x)", "tan(x)", 
-	"(4*x*x*x)+(8*x*x*x)*x",
-	"tan(exp(x))",
-	"tan(exp(x+exp(x)))",
-	"cos(2*x)",
-	"ln( cos(x))"
-    };
+	const char* test_cases[] = {
+		"sin(x)", "cos(x)", "tan(x)", 
+		"(4*x*x*x)+(8*x*x*x)*x",
+		"tan(exp(x))",
+		"tan(exp(x+exp(x)))",
+		"cos(2*x)",
+		"ln( cos(x))"
+	};
 
-size_t num_cases = sizeof(test_cases) / sizeof(test_cases[0]);
+	size_t num_cases = sizeof(test_cases) / sizeof(test_cases[0]);
 
-printf(" running %zu tests\n", num_cases);
+	printf(" running %zu tests\n", num_cases);
 
-for (size_t i = 0; i < num_cases; ++i) {
-	yy_scan_string(test_cases[i]);
-	yyparse();
-    }
+	for (size_t i = 0; i < num_cases; ++i) {
+		printf("solving %s=", test_cases[i] );
+		yy_scan_string(test_cases[i]);
+		yyparse();
+	}
 #else
- yyparse();
+	yyparse();
 #endif
 }

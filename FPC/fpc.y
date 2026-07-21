@@ -1,5 +1,7 @@
 %{
 #include<stdio.h>
+extern int yylex(void);
+void yyerror(char *str);
 #include<stdlib.h>
 #include"string.h"
 #include"listid.h"
@@ -27,7 +29,7 @@ void warning(int,char *,char *);
 void BuildPseudo(int,int,int,int);
 int GenerateTMP(int);
 int BuildOper(int,int,int);
-int BuilUnaryOper(int,int,int);
+int BuilUnaryOper(int,int);
 
 %}
 
@@ -219,9 +221,9 @@ expressions_logiq:
             | expressions_logiq INFERIEUR_EGAL expressions_logiq { $$.place=BuildOper($2.type,$1.place,$3.place); }
             | expressions_logiq SUPERIEUR_EGAL expressions_logiq { $$.place=BuildOper($2.type,$1.place,$3.place); }
             | expressions_logiq EGALITE expressions_logiq { $$.place=BuildOper($2.type,$1.place,$3.place); }
-            | MOINS expressions_logiq %prec UNARY { $$.place=BuildUnaryOper(UNARY_MOINS,$2.place); }
-            | PLUS expressions_logiq %prec UNARY { $$.place=BuildUnaryOper(UNARY_PLUS,$2.place); } 
-            | NOT expressions_logiq %prec UNARY { $$.place=BuildUnaryOper(NOT,$2.place); }
+            | MOINS expressions_logiq %prec UNARY { $$.place=BuilUnaryOper(UNARY_MOINS,$2.place); }
+            | PLUS expressions_logiq %prec UNARY { $$.place=BuilUnaryOper(UNARY_PLUS,$2.place); } 
+            | NOT expressions_logiq %prec UNARY { $$.place=BuilUnaryOper(NOT,$2.place); }
             | COS PARENTHESE_OUVERTE expressions_logiq PARENTHESE_FERMEE { $$.place=BuildOper($1.type,$3.place,-1); }
             | SIN PARENTHESE_OUVERTE expressions_logiq PARENTHESE_FERMEE { $$.place=BuildOper($1.type,$3.place,-1); }
             | LN PARENTHESE_OUVERTE expressions_logiq PARENTHESE_FERMEE { $$.place=BuildOper($1.type,$3.place,-1); }
@@ -370,7 +372,7 @@ int BuildOper(int oper,int pl1,int pl2)
  return(res);
 }
 
-int BuildUnaryOper(int oper,int pl1)
+int BuilUnaryOper(int oper,int pl1)
 {
  int res;
  res=GenerateTMP(IdentHead[pl1].opertype);

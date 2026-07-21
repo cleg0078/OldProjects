@@ -4,10 +4,10 @@ Check the document docs/challenge.pdf to see the specs.
 References: https://www.tablesoccer.org/
 
 # RUNNING USING DOCKER
-* CLEAN: sudo docker-compose down -v
-* BUILD: sudo docker-compose build
-* RUN ( not in  background): sudo docker-compose up
-* RUN ( in  background): sudo docker-compose up -d
+* CLEAN: sudo docker compose down -v
+* BUILD: sudo docker compose build
+* RUN ( not in  background): sudo docker compose up
+* RUN ( in  background): sudo docker compose up -d
 
 ### Then you can open your favorite browser
 * http://localhost:3000 ( main site)

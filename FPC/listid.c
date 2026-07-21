@@ -2,7 +2,7 @@
 #include<string.h>
 #include<malloc.h>
 
-#include"y.tab.h"
+#include"fpc.tab.h"
 #include"fpcstr.h"
 
 /* extern int NBIDENT,NBFUNCTION; */

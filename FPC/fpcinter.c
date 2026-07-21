@@ -2,7 +2,7 @@
 #include<stdlib.h>
 #include<string.h>
 #include<math.h>
-#include"y.tab.h"
+#include"fpc.tab.h"
 #include"fpcstr.h"
 #define MAXSTACKADDR 3500
 #define MAXARGSTACK 1000

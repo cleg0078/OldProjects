@@ -17,5 +17,10 @@ The result is not factorized or simplified.
 
 JUST A SIMPLE STUDENT PROJECT 
 
+*** REQUIREMENTS ( added in 2025 )
+for ubuntu, debian: apt install  bison yacc flex
+
+
+ 
 
 
