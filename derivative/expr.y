@@ -87,6 +87,7 @@ NUMBER           { $$ = make_node(NUM, NULL, NULL, $1); }
 | expr '/' expr    { $$ = make_node(DIV, $1, $3, 0); }
 | expr POW expr    { $$ = make_node(NODE_POW, $1, $3, 0); }
 | '(' expr ')'     { $$ = $2; }
+| '-' expr %prec UMINUS { $$ = make_node(SUB, make_node(NUM, NULL, NULL, 0), $2, 0); }
 ;
 
 %%
@@ -243,6 +244,9 @@ Node* simplify(Node* e) {
 	Node* result = terms_to_expr(collected);
 	free_terms(collected);
 
+	// Final simplification of arithmetic expressions
+	result = simplify_arithmetic(result);
+
 	return result;
 }
 
@@ -319,6 +323,129 @@ Node* simplify_arithmetic(Node* e) {
     if (e->type == DIV && e->right && e->right->type == NUM && e->right->value == 1) {
         Node* res = e->left;
         e->left = NULL;
+        free(e);
+        return res;
+    }
+    
+    // -0 * x = 0 and x * -0 = 0 (handle SUB(0,0) as zero)
+    if (e->type == MUL) {
+        // -0 * x = 0
+        if (e->left && e->left->type == SUB && e->left->left && e->left->right &&
+            e->left->left->type == NUM && e->left->left->value == 0 &&
+            e->left->right->type == NUM && e->left->right->value == 0) {
+            Node* res = make_node(NUM, NULL, NULL, 0);
+            free(e->left);
+            free(e);
+            return res;
+        }
+        // x * -0 = 0
+        if (e->right && e->right->type == SUB && e->right->left && e->right->right &&
+            e->right->left->type == NUM && e->right->left->value == 0 &&
+            e->right->right->type == NUM && e->right->right->value == 0) {
+            Node* res = make_node(NUM, NULL, NULL, 0);
+            free(e->right);
+            free(e);
+            return res;
+        }
+    }
+    
+    // a * (b * x) = (a*b) * x - multiply constants
+    if (e->type == MUL && e->right && e->right->type == MUL && e->right->left && e->right->left->type == NUM) {
+        if (e->left && e->left->type == NUM) {
+            int new_val = e->left->value * e->right->left->value;
+            Node* new_left = make_node(NUM, NULL, NULL, new_val);
+            Node* new_right = e->right->right;
+            e->right->right = NULL;
+            free(e->right->left);
+            free(e->right);
+            free(e);
+            return simplify_arithmetic(make_node(MUL, new_left, new_right, 0));
+        }
+    }
+    
+    // (a * x) * b = (a*b) * x - multiply constants
+    if (e->type == MUL && e->left && e->left->type == MUL && e->left->right && e->left->right->type == NUM) {
+        if (e->right && e->right->type == NUM) {
+            int new_val = e->left->right->value * e->right->value;
+            Node* new_left = e->left->left;
+            e->left->left = NULL;
+            free(e->left->right);
+            free(e->left);
+            free(e);
+            return simplify_arithmetic(make_node(MUL, new_left, make_node(NUM, NULL, NULL, new_val), 0));
+        }
+    }
+    
+    // -1 * x = -x (but not when x is NUM, compute directly)
+    if (e->type == MUL && e->left && e->left->type == NUM && e->left->value == -1 && e->right && e->right->type != NUM) {
+        Node* res = make_node(SUB, make_node(NUM, NULL, NULL, 0), e->right, 0);
+        e->right = NULL;
+        free(e);
+        return res;
+    }
+    
+    // x * -1 = -x (but not when x is NUM, compute directly)
+    if (e->type == MUL && e->right && e->right->type == NUM && e->right->value == -1 && e->left && e->left->type != NUM) {
+        Node* res = make_node(SUB, make_node(NUM, NULL, NULL, 0), e->left, 0);
+        e->left = NULL;
+        free(e);
+        return res;
+    }
+    
+    // x * x = x^2
+    if (e->type == MUL && e->left && e->right && nodes_equal(e->left, e->right)) {
+        if (e->left->type == VAR) {
+            Node* res = make_node(NODE_POW, e->left, make_node(NUM, NULL, NULL, 2), 0);
+            free(e);
+            return res;
+        }
+    }
+    
+    // x^a * x = x^(a+1) when right is VAR or x^1
+    if (e->type == MUL) {
+        // Check if left is POW and right is VAR (same variable)
+        if (e->left && e->left->type == NODE_POW && e->left->left && e->left->left->type == VAR &&
+            e->right && e->right->type == VAR && nodes_equal(e->left->left, e->right)) {
+            // left = x^a, right = x, result = x^(a+1)
+            Node* a = e->left->right;
+            Node* new_exp = make_node(ADD, a, make_node(NUM, NULL, NULL, 1), 0);
+            Node* res = make_node(NODE_POW, e->left->left, new_exp, 0);
+            free(e->left);
+            e->right = NULL;
+            free(e);
+            return simplify_arithmetic(res);
+        }
+        // Check if left is POW and right is POW with same base
+        if (e->left && e->left->type == NODE_POW && e->right && e->right->type == NODE_POW &&
+            e->left->left && e->right->left && nodes_equal(e->left->left, e->right->left)) {
+            // left = x^a, right = x^b, result = x^(a+b)
+            Node* a = e->left->right;
+            Node* b = e->right->right;
+            Node* new_exp = make_node(ADD, a, b, 0);
+            Node* res = make_node(NODE_POW, e->left->left, new_exp, 0);
+            free(e->left);
+            free(e->right);
+            free(e);
+            return simplify_arithmetic(res);
+        }
+    }
+    
+    // x^(a+b) where a and b are NUMs: simplify the exponent
+    if (e->type == NODE_POW && e->right && e->right->type == ADD && e->right->left && e->right->right &&
+        e->right->left->type == NUM && e->right->right->type == NUM) {
+        int new_exp = e->right->left->value + e->right->right->value;
+        Node* res = make_node(NODE_POW, e->left, make_node(NUM, NULL, NULL, new_exp), 0);
+        free(e->right);
+        free(e);
+        return res;
+    }
+    
+    // x^(a*1) = x^a when a is NUM
+    if (e->type == NODE_POW && e->right && e->right->type == MUL && e->right->left && e->right->right &&
+        e->right->left->type == NUM && e->right->right->type == NUM) {
+        int new_exp = e->right->left->value * e->right->right->value;
+        Node* res = make_node(NODE_POW, e->left, make_node(NUM, NULL, NULL, new_exp), 0);
+        free(e->right);
         free(e);
         return res;
     }
@@ -417,6 +544,10 @@ void term_from_product_inner(Node* e, int* coef, int* x_power, Node** trans) {
 		} else if (e->type == MUL) {
 			term_from_product_inner(e->left, coef, x_power, trans);
 			e = e->right;
+		} else if (e->type == SUB && e->left && e->left->type == NUM && e->left->value == 0 && e->right && e->right->type == NUM) {
+			// Handle -n as 0 - n, extract the negative constant
+			*coef *= -e->right->value;
+			e = NULL;
 		} else {
 			if (*trans) {
 				*trans = make_node(MUL, *trans, e, 0);
@@ -571,8 +702,17 @@ Node* terms_to_expr(Term* t) {
 			term_expr = make_node(NUM, NULL, NULL, t->coef);
 		}
 
+		// Multiply by coef unless term_expr is already the constant we want
 		if (t->coef != 1) {
-			term_expr = make_node(MUL, make_node(NUM, NULL, NULL, t->coef), term_expr, 0);
+			if (term_expr->type == NUM && term_expr->value == t->coef) {
+				// term_expr is already NUM(t->coef), nothing to do
+			} else if (term_expr->type == NUM) {
+				// term_expr is NUM but with wrong value, update it
+				term_expr->value *= t->coef;
+			} else {
+				// term_expr is not NUM, create MUL(coef, term_expr)
+				term_expr = make_node(MUL, make_node(NUM, NULL, NULL, t->coef), term_expr, 0);
+			}
 		}
 
 		result = result ? make_node(ADD, result, term_expr, 0) : term_expr;
@@ -590,7 +730,14 @@ void print_expr(Node* e) {
 		case NUM: printf("%d", e->value); break;
 		case VAR: printf("x"); break;
 		case ADD: printf("("); print_expr(e->left); printf(" + "); print_expr(e->right); printf(")"); break;
-		case SUB: printf("("); print_expr(e->left); printf(" - "); print_expr(e->right); printf(")"); break;
+		case SUB:
+			// If left is 0, print as -right instead of (0 - right)
+			if (e->left && e->left->type == NUM && e->left->value == 0) {
+				printf("-"); print_expr(e->right);
+			} else {
+				printf("("); print_expr(e->left); printf(" - "); print_expr(e->right); printf(")");
+			}
+			break;
 		case MUL: printf("("); print_expr(e->left); printf(" * "); print_expr(e->right); printf(")"); break;
 		case DIV: printf("("); print_expr(e->left); printf(" / "); print_expr(e->right); printf(")"); break;
 		case NODE_SIN: printf("sin("); print_expr(e->left); printf(")"); break;
@@ -598,6 +745,7 @@ void print_expr(Node* e) {
 		case NODE_TAN: printf("tan("); print_expr(e->left); printf(")"); break;
 		case NODE_LN: printf("ln("); print_expr(e->left); printf(")"); break;
 		case NODE_LOG: printf("log("); print_expr(e->left); printf(")"); break;
+		case NODE_EXP: printf("exp("); print_expr(e->left); printf(")"); break;
 		case NODE_POW: print_expr(e->left); printf("^"); print_expr(e->right); break;
 	}
 }
@@ -636,11 +784,17 @@ char* print_to_string_rec(Node* e, char* buf) {
 			*buf++ = ')';
 			break;
 		case SUB:
-			*buf++ = '(';
-			buf = print_to_string_rec(e->left, buf);
-			buf += sprintf(buf, "-");
-			buf = print_to_string_rec(e->right, buf);
-			*buf++ = ')';
+			// If left is 0, print as -right instead of (0 - right)
+			if (e->left && e->left->type == NUM && e->left->value == 0) {
+				*buf++ = '-';
+				buf = print_to_string_rec(e->right, buf);
+			} else {
+				*buf++ = '(';
+				buf = print_to_string_rec(e->left, buf);
+				buf += sprintf(buf, "-");
+				buf = print_to_string_rec(e->right, buf);
+				*buf++ = ')';
+			}
 			break;
 		case MUL:
 			*buf++ = '(';
