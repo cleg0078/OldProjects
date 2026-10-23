@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 #ifndef __RELEASE 
 extern void yy_scan_string(const char *);
@@ -29,8 +30,9 @@ extern void yy_scan_string(const char *);
 
 	Node* make_node(int type, Node* left, Node* right, int value);
 	Node* differentiate(Node* expr);
+	Node* deep_copy_node(Node* e);
+	Node* result_expr = NULL;
 	Node* simplify(Node* expr);
-	char* print_to_string(Node* e);
 	void print_expr(Node* expr);
 	void free_expr(Node* expr);
 
@@ -52,9 +54,9 @@ extern void yy_scan_string(const char *);
 
 
 %left '+' '-'
-%right '^'
 %left '*' '/'
 %right UMINUS
+%left POW
 
 %%
 
@@ -62,10 +64,9 @@ input:
 expr {
 	Node* d = differentiate($1);
 	Node* s = simplify(d);
-	print_expr(s); printf("\n");
+	result_expr = s; /* printed by main() only after a successful parse */
 	free_expr($1); 
 	free_expr(d); 
-	free_expr(s);
 }
 ;
 
@@ -123,10 +124,18 @@ Node* differentiate(Node* e) {
 					0);
 
 		case NODE_LN:
-		case NODE_LOG:
 			return make_node(DIV,
 					differentiate(e->left),
 					e->left,
+					0);
+		case NODE_LOG:
+			// d/dx log10(u) = u' / (u * ln(10))
+			return make_node(DIV,
+					make_node(DIV,
+						differentiate(e->left),
+						e->left,
+						0),
+					make_node(NODE_LN, make_node(NUM, NULL, NULL, 10), NULL, 0),
 					0);
 		case NODE_POW:
 			// d/dx(u^v) = v*u^(v-1)*u' + u^v*ln(u)*v' (general power rule)
@@ -143,17 +152,17 @@ Node* differentiate(Node* e) {
 								0),
 						0);
 			} else {
-				// General case: d/dx(u^v) = u^v * (v*u^(v-1)*u' + ln(u)*v')
-				return make_node(MUL,
-						make_node(NODE_POW, e->left, e->right, 0),
-						make_node(ADD,
+				// General case: d/dx(u^v) = v*u^(v-1)*u' + u^v*ln(u)*v'
+				return make_node(ADD,
+						make_node(MUL,
+								e->right,
 								make_node(MUL,
-										e->right,
-										make_node(MUL,
-												make_node(NODE_POW, e->left, make_node(NUM, NULL, NULL, 1), 0),
-												differentiate(e->left),
-												0),
+										make_node(NODE_POW, e->left, make_node(SUB, deep_copy_node(e->right), make_node(NUM, NULL, NULL, 1), 0), 0),
+										differentiate(e->left),
 										0),
+								0),
+						make_node(MUL,
+								make_node(NODE_POW, e->left, deep_copy_node(e->right), 0),
 								make_node(MUL,
 										make_node(NODE_LN, e->left, NULL, 0),
 										differentiate(e->right),
@@ -222,6 +231,12 @@ Term* collect_terms(Term* t);
 Node* terms_to_expr(Term* t);
 Node* deep_copy_node(Node* e);
 Node* simplify_arithmetic(Node* e);
+int node_gcd(int a, int b);
+
+int node_gcd(int a, int b) {
+	while (b) { int t = a % b; a = b; b = t; }
+	return a ? a : 1;
+}
 
 Node* simplify(Node* e) {
 	if (!e) return NULL;
@@ -256,6 +271,51 @@ Node* simplify_arithmetic(Node* e) {
     
     e->left = simplify_arithmetic(e->left);
     e->right = simplify_arithmetic(e->right);
+    
+    // fold constant arithmetic: NUM op NUM (DIV reduced by gcd, never by 0)
+    if (e->left && e->right && e->left->type == NUM && e->right->type == NUM) {
+        int a = e->left->value;
+        int b = e->right->value;
+        int r;
+        int fold = 1;
+        switch (e->type) {
+            case ADD: r = a + b; break;
+            case SUB: r = a - b; break;
+            case MUL: r = a * b; break;
+            case DIV: {
+                if (b == 0) { fold = 0; break; }
+                int g = node_gcd(a < 0 ? -a : a, b < 0 ? -b : b);
+                a /= g; b /= g;
+                if (b < 0) { a = -a; b = -b; }
+                if (b == 1) { r = a; break; }
+                e->left->value = a;
+                e->right->value = b;
+                return e;
+            }
+            default: fold = 0; break;
+        }
+        if (fold) {
+            free(e->left);
+            free(e->right);
+            free(e);
+            return make_node(NUM, NULL, NULL, r);
+        }
+    }
+    
+    // x^1 = x
+    if (e->type == NODE_POW && e->right && e->right->type == NUM && e->right->value == 1) {
+        Node* res = e->left;
+        e->left = NULL;
+        free(e);
+        return res;
+    }
+    
+    // 0 / x = 0
+    if (e->type == DIV && e->left && e->left->type == NUM && e->left->value == 0) {
+        Node* res = make_node(NUM, NULL, NULL, 0);
+        free(e);
+        return res;
+    }
     
     // 0 * x = 0
     if (e->type == MUL && e->left && e->left->type == NUM && e->left->value == 0) {
@@ -472,7 +532,7 @@ Node* distribute(Node* e) {
 		Node* a = e->left->left;
 		Node* b = e->left->right;
 		Node* c = e->right;
-		Node* new_add = make_node(ADD, make_node(MUL, a, c, 0), make_node(MUL, b, c, 0), 0);
+		Node* new_add = make_node(ADD, make_node(MUL, a, c, 0), make_node(MUL, b, deep_copy_node(c), 0), 0);
 		free(e->left);
 		free(e);
 		return distribute(new_add);
@@ -482,7 +542,7 @@ Node* distribute(Node* e) {
 		Node* a = e->left;
 		Node* b = e->right->left;
 		Node* c = e->right->right;
-		Node* new_add = make_node(ADD, make_node(MUL, a, b, 0), make_node(MUL, a, c, 0), 0);
+		Node* new_add = make_node(ADD, make_node(MUL, a, b, 0), make_node(MUL, deep_copy_node(a), c, 0), 0);
 		free(e->right);
 		free(e);
 		return distribute(new_add);
@@ -595,8 +655,11 @@ Term* flatten_to_terms(Node* e) {
 }
 
 Term* negate_terms(Term* t) {
-	if (!t) return NULL;
-	t->coef = -t->coef;
+	Term* p = t;
+	while (p) {
+		p->coef = -p->coef;
+		p = p->next;
+	}
 	return t;
 }
 
@@ -634,6 +697,7 @@ Term* collect_terms(Term* t) {
 				match->coef += t->coef;
 				t->trans = NULL;  // Detach to avoid double-free
 				t->next = NULL;  // Prevent double-free
+				free(t);  // merged term shell no longer needed
 				if (prev) prev->next = match;
 				else result = match;
 				// Remove term if coefficient is 0
@@ -641,6 +705,7 @@ Term* collect_terms(Term* t) {
 					Term* to_remove = match;
 					if (prev) prev->next = match->next;
 					else result = match->next;
+					to_remove->next = NULL;  // free only the removed term, not the live tail
 					free_terms(to_remove);
 				}
 				break;
@@ -751,101 +816,33 @@ void print_expr(Node* e) {
 }
 
 void free_expr(Node* e) {
-	if (!e) return;
-
-	if( !e->left ) 
-		free_expr(e->left);
-	if ( !e->right )
-		free_expr(e->right);
-	/*
-	   free(e);
-	 */
+	/* Intentional no-op: differentiate() aliases input subtrees into the
+	   derivative tree and Term.trans steals interior pointers (see
+	   MEMORY_SAFETY_REPORT.md R1/R2), so a real recursive free would be a
+	   use-after-free. Repairing ownership (deep-copy at alias sites, or an
+	   arena allocator) is tracked there; until then this MUST stay a no-op
+	   and callers' cleanup calls are placeholders. */
+	(void)e;
 }
 
 void yyerror(const char *s) {
 	fprintf(stderr, "Error: %s\n", s);
 }
 
-char* print_to_string_rec(Node* e, char* buf) {
-	if (!e) return buf;
-
-	switch (e->type) {
-		case NUM:
-			buf += sprintf(buf, "%d", e->value);
-			break;
-		case VAR:
-			buf += sprintf(buf, "x");
-			break;
-		case ADD:
-			*buf++ = '(';
-			buf = print_to_string_rec(e->left, buf);
-			buf += sprintf(buf, "+");
-			buf = print_to_string_rec(e->right, buf);
-			*buf++ = ')';
-			break;
-		case SUB:
-			// If left is 0, print as -right instead of (0 - right)
-			if (e->left && e->left->type == NUM && e->left->value == 0) {
-				*buf++ = '-';
-				buf = print_to_string_rec(e->right, buf);
-			} else {
-				*buf++ = '(';
-				buf = print_to_string_rec(e->left, buf);
-				buf += sprintf(buf, "-");
-				buf = print_to_string_rec(e->right, buf);
-				*buf++ = ')';
-			}
-			break;
-		case MUL:
-			*buf++ = '(';
-			buf = print_to_string_rec(e->left, buf);
-			buf += sprintf(buf, "*");
-			buf = print_to_string_rec(e->right, buf);
-			*buf++ = ')';
-			break;
-		case DIV:
-			*buf++ = '(';
-			buf = print_to_string_rec(e->left, buf);
-			buf += sprintf(buf, "/");
-			buf = print_to_string_rec(e->right, buf);
-			*buf++ = ')';
-			break;
-		case NODE_SIN:
-			buf += sprintf(buf, "sin(");
-			buf = print_to_string_rec(e->left, buf);
-			*buf++ = ')';
-			break;
-		case NODE_COS:
-			buf += sprintf(buf, "cos(");
-			buf = print_to_string_rec(e->left, buf);
-			*buf++ = ')';
-			break;
-		case NODE_EXP:
-			buf += sprintf(buf, "exp(");
-			buf = print_to_string_rec(e->left, buf);
-			*buf++ = ')';
-			break;
-		case NODE_TAN:
-			buf += sprintf(buf, "tan(");
-			buf = print_to_string_rec(e->left, buf);
-			*buf++ = ')';
-			break;
-	}
-	*buf = '\0';
-	return buf;
-}
-
-char* print_to_string(Node* e) {
-	static char buffer[1024];
-	buffer[0] = '\0';
-	print_to_string_rec(e, buffer);
-	return buffer;
-}
-
-
-void main(void) {
+int main(void) {
 
 #ifndef __RELEASE 
+	if (!isatty(0) && getenv("DERIV_DEMO") == NULL) {
+		/* Piped input in the demo build: behave like the release build
+		   instead of ignoring stdin. Set DERIV_DEMO=1 to force demo mode. */
+		int rc = yyparse();
+		if (rc == 0 && result_expr) {
+			print_expr(result_expr);
+			printf("\n");
+		}
+		return rc == 0 ? 0 : 1;
+	}
+
 	const char* test_cases[] = {
 		"sin(x)", "cos(x)", "tan(x)", 
 		"(4*x*x*x)+(8*x*x*x)*x",
@@ -861,10 +858,22 @@ void main(void) {
 
 	for (size_t i = 0; i < num_cases; ++i) {
 		printf("solving %s=", test_cases[i] );
+		result_expr = NULL;
 		yy_scan_string(test_cases[i]);
-		yyparse();
+		if (yyparse() == 0 && result_expr) {
+			print_expr(result_expr);
+			printf("\n");
+		}
 	}
 #else
-	yyparse();
+	{
+		int rc = yyparse();
+		if (rc == 0 && result_expr) {
+			print_expr(result_expr);
+			printf("\n");
+		}
+		return rc == 0 ? 0 : 1;
+	}
 #endif
+	return 0;
 }

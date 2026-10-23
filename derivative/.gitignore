@@ -1,4 +1,8 @@
 deriv
-expr.tab.c  
-expr.tab.h  
+expr.tab.c
+expr.tab.h
 lex.yy.c
+expr.output
+expr_debug.tab.c
+expr_debug.tab.h
+attic/

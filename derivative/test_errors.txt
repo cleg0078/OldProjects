@@ -1,0 +1,26 @@
+# Malformed / invalid inputs — every line must exit 1, print "Error:" on stderr, print nothing on stdout.
+# Lines starting with # are comments; blank lines are skipped.
+x+
+()
+sin(x
+sin
+x@1
+x%2
+x**x
+x^
+(x
+2**
+hello world
+y
+sin(cos())
++
+2 2
+x y
+sin x
+1+
+*x
+5**2*
+)
+x1
+1x
+café
