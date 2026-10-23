@@ -1,0 +1,28 @@
+== gate BVH ==
+ess DIFF
+ess2 DIFF
+ess3 DIFF
+ess5 DIFF
+tri1 DIFF
+tri2 DIFF
+tri2q DIFF
+tri3 DIFF
+tri3q DIFF
+tri4 DIFF
+tri_edge OK
+jupiter-DIFF
+fail=1
+== gate LINEAR ==
+ess DIFF
+ess2 DIFF
+ess3 DIFF
+ess5 DIFF
+tri1 DIFF
+tri2 DIFF
+tri2q DIFF
+tri3 DIFF
+tri3q DIFF
+tri4 DIFF
+tri_edge OK
+jupiter-DIFF
+fail=1

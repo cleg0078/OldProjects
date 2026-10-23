@@ -1,0 +1,61 @@
+SPHERE < 
+        CENTER   < -0.4  -0.3  2.6 0.894427 > 
+        AMBIENT < 0.2 0.2 0.2 >
+        DIFFUSE < 0.0 0.0 0.0 >
+        SPECULAR < 0.0 0.0 0.0  > 
+        REFLECTION < 0.0 0.2 0.2 0.2 >
+        REFRACTION < 0.0 1.0 1.0 1.0 >
+        WIDTH 39.0
+        INDEX 20.0 
+        REFLEC_DIFFUSE 1.0
+        REFRAC_DIFFUSE 1.0 
+        MAPPING ../maps/ashsen.tga
+      > 
+
+
+
+
+SPHERE < 
+        CENTER   < -0.6  -0.8  0.5 0.447214 > 
+        AMBIENT < 0.1 0.1 0.1 >
+        DIFFUSE < 0.1 0.1 0.1 >
+        SPECULAR < 0.0 0.0 0.0 >
+        REFLECTION < 0.0 0.3 0.3 0.3 >
+        REFRACTION < 0.0 0.0 0.0 0.0 >
+        WIDTH 1.0
+        INDEX 1.1 
+        REFLEC_DIFFUSE 1.0
+        REFRAC_DIFFUSE 1.0 
+        MAPPING ../maps/pat9.tga
+       >
+
+
+PLANE <
+        BASE < -5.0 -2.0 -1.0   -5.0 -2.0 5.0   5.0 -2.0 -1.0 >
+        AMBIENT < 0.0 0.0 0.0 >
+        DIFFUSE < 0.3 0.3 0.3 >
+        SPECULAR < 0.5 0.5 0.5 > 
+        REFLECTION < 0.9 0.8 0.8 0.8 >
+        REFRACTION < 0.0 0.0 0.0 0.0 >
+        REFLEC_DIFFUSE 1.0
+        REFRAC_DIFFUSE 1.0
+        WIDTH 10.0
+        INDEX 10.0
+        MAPPING ../maps/cloud.tga
+       >
+
+EYE <
+     POS < 2.5 -0.5 -2.0 >
+     DIR < -1.0 0.0 1.0 >
+     UP < 0.0 1.0 0.4 >
+    >
+
+
+LIGHT <
+       ORIGIN < 5.0 2.0 3.0 >
+       ANGLE 1.0
+      >
+
+SCENE <
+       FOV 50.0
+      >

@@ -1,0 +1,31 @@
+CFLAGS= -Wstrict-prototypes
+#Wstrict-prototypes 
+CC =xgcc -O2 $(CFLAGS) -mpentium -I. -I./XGUI -I/usr/X11/include 
+CC2 =xgcc -O2 -mpentium -I. -I./XGUI -I/usr/X11/include
+AR= ar
+RM= rm
+# Make's implicit rules for making a .o file from a .c file...
+#
+RAYFILE = Vector.c Vector.h VRStruct.h VRay.c VRay.h\
+	  Display.h Display.c Parse.c Parse.h libVRay.a\
+          Intersect.c Trace.c Shade.c Bgcolor.c Mapping.c\
+	  Makefile XGUI 
+
+RAYOBJ  = Trace.o Bgcolor.o Intersect.o Mapping.o Shade.o\
+	   Parse.o Vector.o Display.o 
+
+all:    $(RAYOBJ)
+
+lib:
+	rm -f libVRay.a 
+	$(AR) -r libVRay.a $(RAYOBJ)
+
+exe: 
+	$(CC2) VRay.c -o VRay -I. -I/usr/X11/include -L./XGUI -L. -L/usr/X11/lib -lVRay -lXGUI -lX11 -lXext -lm 
+
+clean:
+	rm $(RAYOBJ)
+tar:
+	tar -cf VRay.tar $(RAYFILE)
+list:
+	ls $(RAYFILE)

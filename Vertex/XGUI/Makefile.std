@@ -1,0 +1,28 @@
+CFLAGS=	 
+# Change The Path For Your Include. Modify "comp" File ...
+CC =            gcc -I. -I/usr/include/X11 
+AR= ar
+RM= rm
+
+# Make's implicit rules for making a .o file from a .c file...
+#
+GUIFILE = Connect.c XShell.c Menu.c General.c Button.c Scroll.c \
+          Text.c List.c Toggle.c Label.c File.c Drawing.c CheckBox.c Palette.c Makefile \
+          Makefile.std comp XGUI.h Connect.h 
+
+GUIOBJ  = Connect.o File.o XShell.o Menu.o General.o Button.o \
+          Text.o List.o Scroll.o Toggle.o Label.o Palette.o CheckBox.o Drawing.o
+
+all:    $(GUIOBJ)
+     
+lib: 
+	rm -f libXGUI.a
+	$(AR) -r libXGUI.a $(GUIOBJ)
+clean:
+	-rm $(GUIOBJ)
+tgz:
+	rm -f G*.tgz g*.tgz
+	tar -czf guilib.tgz $(GUIFILE)
+list:
+	ls $(GUIFILE)
+

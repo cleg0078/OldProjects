@@ -1,0 +1,84 @@
+TRIANGLE <
+        VERTICES < -1.0 -1.0 3.0   0.0 0.0 3.0   1.0 1.0 3.0 >
+        AMBIENT < 0.0 0.8 0.0 >
+        DIFFUSE < 0.0 0.0 0.0 >
+        SPECULAR < 0.0 0.0 0.0 >
+        REFLECTION < 0.0 1.0 1.0 1.0 >
+        REFRACTION < 0.0 0.0 0.0 0.0 >
+        WIDTH 10.0
+        INDEX 100.0
+        REFLEC_DIFFUSE 1.0
+        REFRAC_DIFFUSE 1.0
+        MAPPING NONE
+       >
+
+TRIANGLE <
+        VERTICES < 2.0 2.0 3.0   2.0 2.0 3.0   2.5 2.0 3.0 >
+        AMBIENT < 0.0 0.0 0.8 >
+        DIFFUSE < 0.0 0.0 0.0 >
+        SPECULAR < 0.0 0.0 0.0 >
+        REFLECTION < 0.0 1.0 1.0 1.0 >
+        REFRACTION < 0.0 0.0 0.0 0.0 >
+        WIDTH 10.0
+        INDEX 100.0
+        REFLEC_DIFFUSE 1.0
+        REFRAC_DIFFUSE 1.0
+        MAPPING NONE
+       >
+
+TRIANGLE <
+        VERTICES < 0.8 -1.0 3.0   0.8 0.0 3.0   0.8 1.0 3.0 >
+        AMBIENT < 0.8 0.8 0.0 >
+        DIFFUSE < 0.0 0.0 0.0 >
+        SPECULAR < 0.0 0.0 0.0 >
+        REFLECTION < 0.0 1.0 1.0 1.0 >
+        REFRACTION < 0.0 0.0 0.0 0.0 >
+        WIDTH 10.0
+        INDEX 100.0
+        REFLEC_DIFFUSE 1.0
+        REFRAC_DIFFUSE 1.0
+        MAPPING NONE
+       >
+
+TRIANGLE <
+        VERTICES < 0.0 1.2 -2.5   1.4 -0.6 -2.5   -1.4 -0.6 -2.5 >
+        AMBIENT < 0.8 0.8 0.8 >
+        DIFFUSE < 0.0 0.0 0.0 >
+        SPECULAR < 0.0 0.0 0.0 >
+        REFLECTION < 0.0 1.0 1.0 1.0 >
+        REFRACTION < 0.0 0.0 0.0 0.0 >
+        WIDTH 10.0
+        INDEX 100.0
+        REFLEC_DIFFUSE 1.0
+        REFRAC_DIFFUSE 1.0
+        MAPPING NONE
+       >
+
+TRIANGLE <
+        VERTICES < 0.0 0.5 1.5   0.3 -0.1 1.5   -0.3 -0.1 1.5 >
+        AMBIENT < 0.9 0.0 0.0 >
+        DIFFUSE < 0.0 0.0 0.0 >
+        SPECULAR < 0.0 0.0 0.0 >
+        REFLECTION < 0.0 1.0 1.0 1.0 >
+        REFRACTION < 0.0 0.0 0.0 0.0 >
+        WIDTH 10.0
+        INDEX 100.0
+        REFLEC_DIFFUSE 1.0
+        REFRAC_DIFFUSE 1.0
+        MAPPING NONE
+       >
+
+EYE <
+     POS < 0.0 0.2 -2.0 >
+     DIR < 0.0 0.0 1.0 >
+     UP < 0.0 1.0 0.0 >
+    >
+
+LIGHT <
+       ORIGIN < 2.0 3.0 -1.0 >
+       ANGLE 1.0
+      >
+
+SCENE <
+       FOV 50.0
+      >

@@ -1,0 +1,20 @@
+# Build artifacts
+*.o
+*.a
+libXGUI.a
+
+# Built binaries (demo/test programs)
+ess
+graph
+coucou2
+fract
+icon
+scrolltest
+scrollmath
+filetest
+ess.gdb
+*_gdb
+
+# Editor leftovers
+*.bak
+*.prev

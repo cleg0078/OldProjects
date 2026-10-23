@@ -1,0 +1,3 @@
+#!/bin/sh
+# quick single-program compile against the local libXGUI build: ./comp program
+gcc $1.c -o $1 -I. -L. -lXGUI -lXpm -lX11 -lm  

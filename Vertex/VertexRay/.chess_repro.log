@@ -1,0 +1,10 @@
+/home/cleg/MyDev/Vertex/VertexRay/.chess_repro.sh: line 15:    12 Segmentation fault         (core dumped) timeout 15 ./.new.bin 3 100 100 chess.vr 2> .cerr_$n.txt
+run 1 FAILED rc=139 size=0
+Parse End
+/home/cleg/MyDev/Vertex/VertexRay/.chess_repro.sh: line 15:   126 Segmentation fault         (core dumped) timeout 15 ./.new.bin 3 100 100 chess.vr 2> .cerr_$n.txt
+run 4 FAILED rc=139 size=0
+Parse End
+run 5 FAILED rc=124 size=0
+Parse End
+FAILS=3/8
+REPRO-DONE
